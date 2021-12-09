@@ -1,4 +1,4 @@
-package com.digiboy.platform.insfrastructure.discovery;
+package com.eightbitsolutions.platform.insfrastructure.discovery;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
