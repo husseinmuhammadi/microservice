@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  eureka-discovery-service:
+    build:
+      dockerfile: ./infrastructure/eurika-discovery-service/dockerfile
+      context: ./infrastructure/eurika-discovery-service/.
+    
