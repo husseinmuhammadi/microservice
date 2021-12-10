@@ -5,3 +5,23 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
