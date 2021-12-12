@@ -12,11 +12,11 @@
     </parent>
 
     <groupId>com.eightbitsolutions.infrastructure.gateway</groupId>
-    <artifactId>gateway-app</artifactId>
+    <artifactId>zuul-api-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Api Gateway</name>
-    <description>Demo project for Spring Boot</description>
+    <name>Zuul Api Gateway</name>
+    <description>Zuul Api Gateway</description>
 
     <properties>
         <java.version>11</java.version>
