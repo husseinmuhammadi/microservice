@@ -7,6 +7,14 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+#      routes:
+#        - id: users-index
+#          uri: lb://users-ws
+#          predicates:
+#            - Path=/users/index
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHearder=Cookie
 
 server:
   port: 8011
