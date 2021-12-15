@@ -3,11 +3,19 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-#      routes:
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
+      routes:
+        - id: users
+          uri: http://localhost:9001/
+          predicates:
+            - Path=/users/index
+        - id: account
+          uri: http://localhost:9002/
+          predicates:
+            - Path=/account/**
 #        - id: users-index
 #          uri: lb://users-ws
 #          predicates:
