@@ -9,11 +9,11 @@ spring:
 #          lower-case-service-id: true
       routes:
         - id: users
-          uri: http://localhost:9001/
+          uri: lb://users-ws
           predicates:
             - Path=/users/index
         - id: account
-          uri: http://localhost:9002/
+          uri: lb://account-management-ws
           predicates:
             - Path=/account/**
 #        - id: users-index
