@@ -1,4 +1,4 @@
-package com.eightbitsolutions.platform.web.resources;
+package com.eightbitsolutions.platform.users.web.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

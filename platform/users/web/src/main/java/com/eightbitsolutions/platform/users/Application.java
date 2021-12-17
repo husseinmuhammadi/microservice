@@ -1,4 +1,4 @@
-package com.eightbitsolutions.platform;
+package com.eightbitsolutions.platform.users;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
