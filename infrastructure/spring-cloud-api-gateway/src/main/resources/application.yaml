@@ -12,17 +12,14 @@ spring:
           uri: lb://users-ws
           predicates:
             - Path=/users/index
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
         - id: account
           uri: lb://account-management-ws
           predicates:
             - Path=/account/**
-#        - id: users-index
-#          uri: lb://users-ws
-#          predicates:
-#            - Path=/users/index
-#            - Method=GET
-#          filters:
-#            - RemoveRequestHearder=Cookie
 
 server:
   port: 8011
