@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.eightbitsolutions.platform.users</groupId>
+        <groupId>com.digiboy.platform.users</groupId>
         <artifactId>users-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -56,6 +56,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>users-logger</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>

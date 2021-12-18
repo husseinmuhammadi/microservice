@@ -1,4 +1,4 @@
-package com.eightbitsolutions.platform.users.config;
+package com.digiboy.platform.users.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +11,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/users/**").permitAll();
+        http.authorizeRequests()
+                .antMatchers("/**")
+                .permitAll();
     }
 }
