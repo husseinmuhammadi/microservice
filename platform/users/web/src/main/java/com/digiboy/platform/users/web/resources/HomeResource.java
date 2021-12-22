@@ -22,7 +22,6 @@ public class HomeResource {
 
     @GetMapping("/index")
     public String index() {
-        logger.info("Helloooooo");
         return "Working on port " + env.getProperty("local.server.port");
     }
 }

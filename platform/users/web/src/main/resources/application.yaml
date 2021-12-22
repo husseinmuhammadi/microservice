@@ -1,5 +1,7 @@
 server:
   port: 0
+  servlet:
+    context-path: /
 
 eureka:
   client:
@@ -9,8 +11,32 @@ eureka:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 spring:
+  profiles:
+    active: @active.profiles@
   application:
     name: users-ws
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,metrics,*"
+      base-path: /actuator
+
+---
+
+spring:
+  profiles: dev
   devtools:
     restart:
       enabled: true
+
+---
+
+spring:
+  profiles: stage
+
+---
+
+spring:
+  profiles: prod
