@@ -7,5 +7,5 @@ RUN mvn clean package
 FROM openjdk:11
 WORKDIR /work
 COPY --from=build /work/target/eureka-discovery-service.jar eureka-discovery-service.jar
-EXPOSE 8762
+EXPOSE 8761
 ENTRYPOINT ["java","-jar","eureka-discovery-service.jar"]
