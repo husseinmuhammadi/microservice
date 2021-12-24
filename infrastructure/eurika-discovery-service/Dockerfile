@@ -1,7 +1,7 @@
 FROM maven:3.6.0-jdk-11 AS build
 WORKDIR /work
-COPY pom.xml pom.xml
-COPY src src
+COPY ./pom.xml ./pom.xml
+COPY ./src ./src
 RUN mvn clean package
 
 FROM openjdk:11

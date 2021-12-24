@@ -1,14 +1,23 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:13.2
-    container_name: postgres
-    volumes:
-      - ./init.sh:/docker-entrypoint-initdb.d/init.sh
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+  eureka-disconvery-service:
+    build:
+      context: ./eurika-discovery-service
+      dockerfile: ./dockerfile1
+      # dockerfile: ./eurika-discovery-service/dockerfile
+    image: eureka-discovery-service
+    container_name: eureka-discovery-service
     ports:
-      - 55432:5432
+      - 8761:8761
+  # postgres:
+  #   image: postgres:13.2
+  #   container_name: postgres
+  #   volumes:
+  #     - ./init.sh:/docker-entrypoint-initdb.d/init.sh
+  #   environment:
+  #     - POSTGRES_DB=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #   ports:
+  #     - 55432:5432

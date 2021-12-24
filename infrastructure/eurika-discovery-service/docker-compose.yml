@@ -3,7 +3,8 @@ services:
   eureka-disconvery-service:
     build:
       context: .
+      # dockerfile: ./dockerfile1
     image: eureka-discovery-service
     container_name: eureka-discovery-service
     ports:
-      - 8762:8762
+      - 8761:8761
