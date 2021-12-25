@@ -2,7 +2,7 @@ spring:
   application:
     name: zuul
   profiles:
-    active: dev
+    active: @active.profiles@
 
 server:
   port: 8011
