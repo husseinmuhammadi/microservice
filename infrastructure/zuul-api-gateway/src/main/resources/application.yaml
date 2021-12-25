@@ -1,9 +1,29 @@
 spring:
   application:
     name: zuul
+  profiles:
+    active: dev
+
 server:
   port: 8011
+
+
+---
+
+spring:
+  profiles: dev
+
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
+
+---
+
+spring:
+  profiles: stage
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-discovery-service:8761/eureka/
