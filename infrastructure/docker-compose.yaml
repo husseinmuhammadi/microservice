@@ -1,18 +1,30 @@
 version: '3.8'
 
 services:
-  eureka-disconvery-service:
+  eureka-discovery-service:
     build:
       context: ./eurika-discovery-service
       dockerfile: ./Dockerfile
     image: eureka-discovery-service
     container_name: eureka-discovery-service
-    depends_on:
-      - postgres
     ports:
       - 8761:8761
     networks:
       - digiboy-network
+  zuul-api-gateway:
+    build:
+      context: ./zuul-api-gateway
+      dockerfile: Dockerfile
+      args:
+        PROFILE: stage
+    image: zuul-api-gateway
+    container_name: zuul-api-gateway
+    depends_on:
+      - eureka-discovery-service
+    ports:
+      - 8011:8011
+    networks:
+      - digiboy-network  
   postgres:
     image: postgres:13.2
     container_name: postgres
