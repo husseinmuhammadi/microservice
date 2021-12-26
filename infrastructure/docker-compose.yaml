@@ -24,7 +24,20 @@ services:
     ports:
       - 8011:8011
     networks:
-      - digiboy-network  
+      - digiboy-network
+  spring-cloud-api-gateway:
+    build: 
+      context: ./spring-cloud-api-gateway
+      args:
+        PROFILE: stage
+    image: spring-cloud-api-gateway
+    container_name: spring-cloud-api-gateway
+    depends_on:
+      - eureka-discovery-service
+    ports:
+      - 8012:8012
+    networks:
+      - digiboy-network
   postgres:
     image: postgres:13.2
     container_name: postgres
