@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  users-micro-service:
+    build: 
+      context: ./platform/users
+      dockerfile: Dockerfile
+      args:
+        PROFILE: stage
+    image: users-micro-service
+    container_name: users-micro-service
+    networks:
+      - digiboy-network
+    depends_on:
+      - postgres
+      - eurika-discovery-service
+    restart: always
+  eureka-discovery-service:
+    build:
+      context: ./infrastructure/eurika-discovery-service
+      dockerfile: Dockerfile
+    image: eureka-discovery-service
+    container_name: eureka-discovery-service
+    ports:
+      - 8761:8761
+    networks:
+      - digiboy-network
+  zuul-api-gateway:
+    build:
+      context: ./infrastructure/zuul-api-gateway
+      dockerfile: Dockerfile
+      args:
+        PROFILE: stage
+    image: zuul-api-gateway
+    container_name: zuul-api-gateway
+    depends_on:
+      - eureka-discovery-service
+    ports:
+      - 8011:8011
+    networks:
+      - digiboy-network
+  spring-cloud-api-gateway:
+    build: 
+      context: ./infrastructure/spring-cloud-api-gateway
+      args:
+        PROFILE: stage
+    image: spring-cloud-api-gateway
+    container_name: spring-cloud-api-gateway
+    depends_on:
+      - eureka-discovery-service
+    ports:
+      - 8012:8012
+    networks:
+      - digiboy-network
+  postgres:
+    image: postgres:13.2
+    container_name: postgres
+    volumes:
+      - ./init.sh:/docker-entrypoint-initdb.d/init.sh
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 55432:5432
+    networks:
+      - digiboy-network
+networks:
+  digiboy-network:
+    name: digiboy
