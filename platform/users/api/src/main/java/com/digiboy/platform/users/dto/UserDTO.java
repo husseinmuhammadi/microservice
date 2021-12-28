@@ -1,21 +1,11 @@
-package com.digiboy.platform.users.to;
+package com.digiboy.platform.users.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "user")
-public class User implements DomainEntity {
-
-    @Id
+public class UserDTO implements DataTransferObject {
     private String username;
 
     private String password;
 
     private String email;
-
 
     public String getUsername() {
         return username;

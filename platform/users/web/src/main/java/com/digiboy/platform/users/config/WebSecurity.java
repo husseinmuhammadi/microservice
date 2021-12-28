@@ -15,6 +15,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/actuator/**")
                 .permitAll()
                 .antMatchers("/**")
-                .authenticated();
+                .permitAll();
     }
 }

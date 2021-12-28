@@ -11,4 +11,12 @@
     </parent>
 
     <artifactId>users-api</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
