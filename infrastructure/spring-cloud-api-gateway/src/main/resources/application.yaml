@@ -10,26 +10,40 @@ spring:
 #          enabled: true
 #          lower-case-service-id: true
       routes:
-        - id: users
-          uri: lb://users-ws
+        - id: users-status-check
+          uri: lb://users
           predicates:
-            - Path=/users/index
+            - Path=/users-ws/**
             - Method=GET
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
-        - id: account
-          uri: lb://account-management-ws
+        - id: users-save
+          uri: lb://users
           predicates:
-            - Path=/account/**
+            - Path=/users-ws/**
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-ws/(?<segment>/?.*), /$\{segment}
 
-server:
-  port: 8012
+#        - id: account
+#          uri: lb://account-management-ws
+#          predicates:
+#            - Path=/account/**
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
 
 ---
 
 spring:
   profiles: dev
+
+server:
+  port: 8090
 
 eureka:
   client:
@@ -40,6 +54,9 @@ eureka:
 
 spring:
   profiles: stage
+
+server:
+  port: 80
 
 eureka:
   client:
