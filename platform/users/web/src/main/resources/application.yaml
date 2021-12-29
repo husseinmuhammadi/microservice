@@ -20,6 +20,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: users
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
 management:
   endpoints:
