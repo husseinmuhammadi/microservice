@@ -35,7 +35,7 @@ services:
     depends_on:
       - eureka-discovery-service
     ports:
-      - 8012:8012
+      - 8080:80
     networks:
       - digiboy-network
   postgres:

@@ -8,5 +8,5 @@ RUN mvn clean package -P$PROFILE
 FROM openjdk:11
 WORKDIR /work
 COPY --from=build /work/target/spring-cloud-api-gateway.jar spring-cloud-api-gateway.jar
-EXPOSE 8012
+EXPOSE 80
 ENTRYPOINT ["java","-jar","spring-cloud-api-gateway.jar"]
