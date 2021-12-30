@@ -1,5 +1,6 @@
-package com.digiboy.product;
+package com.digiboy.product.repository;
 
+import com.digiboy.product.to.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.digiboy.product;
+package com.digiboy.product.to;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+// import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -14,7 +14,7 @@ public class Product {
     @Column(name = "internal_id", nullable = false)
     private String internalId;
 
-    @NotNull
+    // @NotNull
     @Column(name = "bar_code", nullable = false)
     private String barCode;
 

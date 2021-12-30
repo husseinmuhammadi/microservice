@@ -23,7 +23,10 @@
     </properties>
 
     <modules>
+        <module>repository</module>
         <module>web</module>
+        <module>service</module>
+        <module>api</module>
     </modules>
 
     <dependencies>
