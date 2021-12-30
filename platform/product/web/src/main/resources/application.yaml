@@ -1,0 +1,27 @@
+server:
+  port: 8050
+
+spring:
+  application:
+    name: product-micro-service
+  datasource:
+    url: jdbc:postgresql://localhost:55432/digiboy
+    username: digiboy
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: product
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
