@@ -9,5 +9,6 @@ EOSQL
 
 psql -v ON_ERROR_STOP=1 --username "digiboy" --dbname "digiboy" <<-EOSQL
     CREATE SCHEMA master;
-	CREATE SCHEMA users;
+    CREATE SCHEMA users;
+    CREATE SCHEMA product;
 EOSQL
