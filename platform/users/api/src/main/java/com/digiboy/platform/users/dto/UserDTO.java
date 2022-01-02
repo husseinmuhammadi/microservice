@@ -1,11 +1,22 @@
 package com.digiboy.platform.users.dto;
 
 public class UserDTO implements DataTransferObject {
+
+    private String userId;
+
     private String username;
 
     private String password;
 
     private String email;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getUsername() {
         return username;

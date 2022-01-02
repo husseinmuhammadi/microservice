@@ -7,11 +7,13 @@ import com.digiboy.platform.users.repository.UserRepository;
 import com.digiboy.platform.users.to.User;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl extends ServiceBase implements UserService {
@@ -41,6 +43,8 @@ public class UserServiceImpl extends ServiceBase implements UserService {
     public UserDTO save(UserDTO userDTO) {
         User user = mapper.map(userDTO);
 
+        user.setUserId(UUID.randomUUID().toString());
+
         final String username = user.getUsername().toLowerCase();
         user.setUsername(username);
 
@@ -48,7 +52,6 @@ public class UserServiceImpl extends ServiceBase implements UserService {
             logger.warn("User {} already exists, it will be updated", username);
         }
 
-//         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return mapper.map(repository.save(user));
     }
 
