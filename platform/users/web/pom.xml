@@ -12,10 +12,6 @@
 
     <artifactId>users-web</artifactId>
 
-    <properties>
-        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>

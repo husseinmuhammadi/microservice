@@ -41,6 +41,7 @@ public class UserServiceImpl extends ServiceBase implements UserService {
 
     @Override
     public UserDTO save(UserDTO userDTO) {
+        System.out.println("--------------------------------------------");
         User user = mapper.map(userDTO);
 
         user.setUserId(UUID.randomUUID().toString());

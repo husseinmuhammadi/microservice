@@ -3,8 +3,8 @@ package com.digiboy.platform.users.to;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_USER_USERNAME", columnNames = {"username"})
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(name = "UQ_USERS_USERNAME", columnNames = {"username"})
 })
 public class User implements DomainEntity {
 

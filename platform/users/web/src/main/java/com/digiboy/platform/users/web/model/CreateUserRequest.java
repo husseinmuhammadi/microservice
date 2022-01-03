@@ -1,5 +1,7 @@
 package com.digiboy.platform.users.web.model;
 
+import com.digiboy.platform.users.web.validators.UsernameConstraint;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -9,6 +11,7 @@ public class CreateUserRequest {
     @NotNull
     @NotEmpty
     @NotBlank
+    @UsernameConstraint
     private String username;
 
     @NotNull

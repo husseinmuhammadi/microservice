@@ -7,13 +7,13 @@ import com.digiboy.platform.users.web.model.CreateUserRequest;
 import com.digiboy.platform.users.web.model.CreateUserResponse;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -32,10 +32,18 @@ public class UserResource {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @GetMapping
+    public String status(){
+        System.out.println("+++++++++++++++++Hello");
+        return "Hello";
+    }
+
     @PostMapping
-    public CreateUserResponse save(@Valid @RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<CreateUserResponse> save(@Valid @RequestBody CreateUserRequest createUserRequest) {
+        System.out.println("+++++++++++++++++++++++User Controller ");
         UserDTO user = mapper.map(createUserRequest);
         user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
-        return mapper.map(service.save(user));
+        CreateUserResponse response = mapper.map(service.save(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
