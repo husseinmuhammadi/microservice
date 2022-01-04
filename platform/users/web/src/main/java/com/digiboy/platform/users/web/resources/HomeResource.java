@@ -11,14 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class HomeResource {
 
-    private final Logger logger;
-
     @Autowired
     private Environment env;
-
-    public HomeResource(Logger logger) {
-        this.logger = logger;
-    }
 
     @GetMapping("/index")
     public String index() {

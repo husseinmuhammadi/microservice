@@ -8,6 +8,7 @@ import com.digiboy.platform.users.web.model.CreateUserResponse;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -33,14 +34,15 @@ public class UserResource {
     }
 
     @GetMapping
-    public String status(){
-        System.out.println("+++++++++++++++++Hello");
+    public String status() {
         return "Hello";
     }
 
-    @PostMapping
+    @PostMapping(
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
+            consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
+    )
     public ResponseEntity<CreateUserResponse> save(@Valid @RequestBody CreateUserRequest createUserRequest) {
-        System.out.println("+++++++++++++++++++++++User Controller ");
         UserDTO user = mapper.map(createUserRequest);
         user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
         CreateUserResponse response = mapper.map(service.save(user));
