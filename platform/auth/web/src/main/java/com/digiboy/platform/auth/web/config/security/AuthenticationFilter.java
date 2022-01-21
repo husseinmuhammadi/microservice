@@ -1,9 +1,14 @@
 package com.digiboy.platform.auth.web.config.security;
 
+import com.digiboy.platform.auth.web.model.LoginRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
@@ -14,23 +19,50 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 
-    public AuthenticationFilter() {
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+    private final AuthenticationManager authenticationManager;
+
+    public AuthenticationFilter(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        return super.attemptAuthentication(request, response);
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            LoginRequest loginRequest = mapper.readValue(request.getInputStream(), LoginRequest.class);
+            Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+            return authenticate;
+        } catch (IOException e) {
+            throw new BadCredentialsException("Username or password is invalid", e);
+        }
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        super.successfulAuthentication(request, response, chain, authResult);
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime expiration = now.plusSeconds(60);
+
+        byte[] secretKey = "secret".getBytes(StandardCharsets.UTF_8);
+
+        String token = Jwts.builder().setSubject(
+                        // user id
+                ((User)authResult.getPrincipal()).getUsername()
+                ).setExpiration(Date.from(expiration.atZone(ZoneId.systemDefault()).toInstant()))
+                .signWith(SignatureAlgorithm.HS512, secretKey)
+                .compact();
+
+        response.addHeader("token", token);
     }
 
 

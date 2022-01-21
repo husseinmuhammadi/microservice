@@ -1,6 +1,7 @@
 package com.digiboy.platform.auth.web.config.security;
 
 import com.digiboy.platform.auth.api.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -27,15 +29,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
+//        http.addFilterAt(new AuthenticationFilter(super.authenticationManager()), UsernamePasswordAuthenticationFilter.class);
+        http.addFilter(new AuthenticationFilter(super.authenticationManager()));
+
         http.authorizeHttpRequests()
-                .antMatchers("/**").permitAll()
-                .and()
-                .addFilter(new AuthenticationFilter());
+                .anyRequest().permitAll();
     }
 
     @Override
