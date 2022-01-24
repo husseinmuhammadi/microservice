@@ -10,7 +10,7 @@ services:
     ports:
       - 8761:8761
     networks:
-      - digiboy-network
+      - digilinq-network
   zuul-api-gateway:
     build:
       context: ./zuul-api-gateway
@@ -24,7 +24,7 @@ services:
     ports:
       - 8011:8011
     networks:
-      - digiboy-network
+      - digilinq-network
   spring-cloud-api-gateway:
     build: 
       context: ./spring-cloud-api-gateway
@@ -37,7 +37,19 @@ services:
     ports:
       - 8080:80
     networks:
-      - digiboy-network
+      - digilinq-network
+  spring-cloud-config-server:
+    build:
+      context: ./spring-cloud-config-server
+      args:
+        PROFILE: stage
+      dockerfile: Dockerfile
+    image: spring-cloud-config-server
+    container_name: spring-cloud-config-server
+    ports:
+      - 8071:80
+    networks:
+      - digilinq-network
   postgres:
     image: postgres:13.2
     container_name: postgres
@@ -50,7 +62,7 @@ services:
     ports:
       - 55432:5432
     networks:
-      - digiboy-network
+      - digilinq-network
 networks:
-  digiboy-network:
-    name: digiboy
+  digilinq-network:
+    name: digilinq
