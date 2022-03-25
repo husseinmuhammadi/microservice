@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.eightbits-solutions</groupId>
-        <artifactId>eightbits-solutions-parent</artifactId>
+        <groupId>com.digiboy</groupId>
+        <artifactId>digiboy-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.eightbits-solutions.insfrastructure.discovery</groupId>
+    <groupId>com.digiboy.insfrastructure.discovery</groupId>
     <artifactId>eureka-discovery-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -33,26 +33,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!--        <dependency>-->
