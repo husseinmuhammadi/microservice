@@ -8,7 +8,7 @@ services:
     image: eureka-discovery-service
     container_name: eureka-discovery-service
     ports:
-      - 8761:8761
+      - 8761:80
     networks:
       - digilinq-network
   zuul-api-gateway:
@@ -21,8 +21,9 @@ services:
     container_name: zuul-api-gateway
     depends_on:
       - eureka-discovery-service
+      - spring-cloud-config-server
     ports:
-      - 8011:8011
+      - 8081:80
     networks:
       - digilinq-network
   spring-cloud-api-gateway:
@@ -34,6 +35,7 @@ services:
     container_name: spring-cloud-api-gateway
     depends_on:
       - eureka-discovery-service
+      - spring-cloud-config-server
     ports:
       - 8080:80
     networks:

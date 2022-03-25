@@ -27,7 +27,7 @@
     </properties>
 
     <modules>
-        <module>infrastructure/eurika-discovery-service</module>
+        <module>infrastructure/eureka-discovery-service</module>
         <module>infrastructure/zuul-api-gateway</module>
     </modules>
 
