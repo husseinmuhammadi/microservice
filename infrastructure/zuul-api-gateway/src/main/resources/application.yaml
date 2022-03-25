@@ -1,16 +1,17 @@
 spring:
   application:
     name: zuul
-  profiles:
-    active: @active.profiles@
 
-server:
-  port: 8011
+  profiles:
+    active: ${active.profiles}
 
 ---
 
 spring:
   profiles: dev
+
+server:
+  port: 8081
 
 eureka:
   client:
@@ -22,7 +23,10 @@ eureka:
 spring:
   profiles: stage
 
+server:
+  port: 80
+
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka-discovery-service:8761/eureka/
+      defaultZone: http://eureka-discovery-service:80/eureka/
