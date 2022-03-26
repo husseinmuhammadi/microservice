@@ -15,6 +15,9 @@
     <artifactId>eureka-discovery-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <name>Eureka Discovery Service</name>
+    <description>Eureka Discovery Service</description>
+
     <build>
         <finalName>eureka-discovery-service</finalName>
         <defaultGoal>spring-boot:run</defaultGoal>
@@ -32,6 +35,13 @@
                 </executions>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 
     <dependencies>
