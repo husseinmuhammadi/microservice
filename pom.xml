@@ -23,6 +23,8 @@
     <modules>
         <module>infrastructure/eureka-discovery-service</module>
         <module>infrastructure/zuul-api-gateway</module>
+        <module>infrastructure/spring-cloud-api-gateway</module>
+        <module>infrastructure/spring-cloud-config-server</module>
     </modules>
 
     <dependencyManagement>
@@ -44,4 +46,56 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <id>repackage</id>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.active.profiles>dev</spring.active.profiles>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <scope>runtime</scope>
+                    <optional>true</optional>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>stage</id>
+            <properties>
+                <spring.active.profiles>stage</spring.active.profiles>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.active.profiles>prod</spring.active.profiles>
+            </properties>
+        </profile>
+    </profiles>
 </project>
