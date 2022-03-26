@@ -13,36 +13,36 @@ services:
       - 8761:80
     networks:
       - digilinq-network
-#  zuul-api-gateway:
-#    build:
-#      context: ..
-#      dockerfile: infrastructure/zuul-api-gateway/Dockerfile
-#      args:
-#        PROFILE: stage
-#    image: zuul-api-gateway
-#    container_name: zuul-api-gateway
-#    depends_on:
-#      - eureka-discovery-service
-#      - spring-cloud-config-server
-#    ports:
-#      - 8081:80
-#    networks:
-#      - digilinq-network
-#  spring-cloud-api-gateway:
-#    build:
-#      context: ..
-#      dockerfile: infrastructure/spring-cloud-api-gateway/Dockerfile
-#      args:
-#        PROFILE: stage
-#    image: spring-cloud-api-gateway
-#    container_name: spring-cloud-api-gateway
-#    depends_on:
-#      - eureka-discovery-service
-#      - spring-cloud-config-server
-#    ports:
-#      - 8080:80
-#    networks:
-#      - digilinq-network
+  zuul-api-gateway:
+    build:
+      context: ..
+      dockerfile: infrastructure/zuul-api-gateway/Dockerfile
+      args:
+        PROFILE: stage
+    image: zuul-api-gateway
+    container_name: zuul-api-gateway
+    depends_on:
+      - eureka-discovery-service
+      - spring-cloud-config-server
+    ports:
+      - 8081:80
+    networks:
+      - digilinq-network
+  spring-cloud-api-gateway:
+    build:
+      context: ..
+      dockerfile: infrastructure/spring-cloud-api-gateway/Dockerfile
+      args:
+        PROFILE: stage
+    image: spring-cloud-api-gateway
+    container_name: spring-cloud-api-gateway
+    depends_on:
+      - eureka-discovery-service
+      - spring-cloud-config-server
+    ports:
+      - 8080:80
+    networks:
+      - digilinq-network
   spring-cloud-config-server:
     build:
       context: ..
@@ -55,19 +55,19 @@ services:
       - 8071:80
     networks:
       - digilinq-network
-#  postgres:
-#    image: postgres:13.2
-#    container_name: postgres
-#    volumes:
-#      - ./init.sh:/docker-entrypoint-initdb.d/init.sh
-#    environment:
-#      - POSTGRES_DB=postgres
-#      - POSTGRES_USER=postgres
-#      - POSTGRES_PASSWORD=postgres
-#    ports:
-#      - 55432:5432
-#    networks:
-#      - digilinq-network
+  postgres:
+    image: postgres:13.2
+    container_name: postgres
+    volumes:
+      - ./init.sh:/docker-entrypoint-initdb.d/init.sh
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 55432:5432
+    networks:
+      - digilinq-network
 networks:
   digilinq-network:
     name: digilinq
