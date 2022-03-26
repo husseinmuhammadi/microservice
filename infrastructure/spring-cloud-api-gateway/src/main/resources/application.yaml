@@ -2,7 +2,7 @@ spring:
   application:
     name: api-gateway
   profiles:
-    active: @spring.active.profiles@
+    active: ${spring.active.profiles}
   cloud:
     gateway:
 #      discovery:
@@ -40,7 +40,9 @@ logging:
 ---
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
 
 server:
   port: 8080
@@ -53,7 +55,9 @@ eureka:
 ---
 
 spring:
-  profiles: stage
+  config:
+    activate:
+      on-profile: stage
 
 server:
   port: 80

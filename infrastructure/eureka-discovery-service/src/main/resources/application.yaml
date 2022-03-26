@@ -1,27 +1,32 @@
-server:
-  port: 8761
+spring:
+  application:
+    name: eurika-discovery
+
+  profiles:
+    active: ${spring.active.profiles}
 
 eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
 
+---
 
+spring:
+  config:
+    activate:
+      on-profile: dev
 
+server:
+  port: 8761
 
+---
 
+spring:
+  config:
+    activate:
+      on-profile: stage
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+server:
+  port: 80
 
