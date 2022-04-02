@@ -69,12 +69,12 @@
 
     <profiles>
         <profile>
-            <id>dev</id>
+            <id>local</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <spring.active.profiles>dev</spring.active.profiles>
+                <spring.active.profiles>local</spring.active.profiles>
             </properties>
             <dependencies>
                 <dependency>
@@ -84,6 +84,12 @@
                     <optional>true</optional>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.active.profiles>dev</spring.active.profiles>
+            </properties>
         </profile>
         <profile>
             <id>stage</id>

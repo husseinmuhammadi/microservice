@@ -42,7 +42,7 @@ logging:
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: local
 
 server:
   port: 8080
@@ -57,7 +57,37 @@ eureka:
 spring:
   config:
     activate:
+      on-profile: dev
+
+server:
+  port: 80
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-discovery-service:8761/eureka/
+
+---
+
+spring:
+  config:
+    activate:
       on-profile: stage
+
+server:
+  port: 80
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-discovery-service:80/eureka/
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
 
 server:
   port: 80

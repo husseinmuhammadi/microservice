@@ -18,10 +18,20 @@ spring:
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: local
 
 server:
   port: 8071
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+server:
+  port: 80
 
 ---
 
