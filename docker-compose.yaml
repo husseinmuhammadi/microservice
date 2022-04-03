@@ -2,56 +2,70 @@ version: '3.8'
 
 services:
   users-micro-service:
-    build: 
-      context: ./platform/users
-      dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: platform/user/Dockerfile
       args:
         PROFILE: stage
-    image: users-micro-service
+    image: digilab/users-micro-service
     container_name: users-micro-service
     networks:
-      - digiboy-network
+      - digilinq-network
     depends_on:
       - postgres
-      - eurika-discovery-service
+      - eureka-discovery-service
+      - spring-cloud-config-server
     restart: always
   eureka-discovery-service:
     build:
-      context: ./infrastructure/eurika-discovery-service
-      dockerfile: Dockerfile
-    image: eureka-discovery-service
+      context: .
+      dockerfile: infrastructure/eureka-discovery-service/Dockerfile
+      args:
+        PROFILE: stage
+    image: digilab/eureka-discovery-service
     container_name: eureka-discovery-service
     ports:
       - 8761:8761
     networks:
-      - digiboy-network
+      - digilinq-network
   zuul-api-gateway:
     build:
-      context: ./infrastructure/zuul-api-gateway
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: infrastructure/zuul-api-gateway/Dockerfile
       args:
         PROFILE: stage
-    image: zuul-api-gateway
+    image: digilab/zuul-api-gateway
     container_name: zuul-api-gateway
     depends_on:
       - eureka-discovery-service
     ports:
-      - 8011:8011
+      - 8081:80
     networks:
-      - digiboy-network
+      - digilinq-network
   spring-cloud-api-gateway:
-    build: 
-      context: ./infrastructure/spring-cloud-api-gateway
+    build:
+      context: .
+      dockerfile: infrastructure/spring-cloud-api-gateway/Dockerfile
       args:
         PROFILE: stage
-    image: spring-cloud-api-gateway
+    image: digilab/spring-cloud-api-gateway
     container_name: spring-cloud-api-gateway
     depends_on:
       - eureka-discovery-service
     ports:
-      - 8012:8012
+      - 8080:80
     networks:
-      - digiboy-network
+      - digilinq-network
+  spring-cloud-config-server:
+    build:
+      context: .
+      dockerfile: infrastructure/spring-cloud-config-server/Dockerfile
+      args:
+        PROFILE: stage
+    image: digilab/spring-cloud-config-server
+    container_name: spring-cloud-config-server
+    networks:
+      - digilinq-network
   postgres:
     image: postgres:13.2
     container_name: postgres
@@ -61,10 +75,8 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    ports:
-      - 55432:5432
     networks:
-      - digiboy-network
+      - digilinq-network
 networks:
-  digiboy-network:
-    name: digiboy
+  digilinq-network:
+    name: digilinq

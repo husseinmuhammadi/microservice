@@ -3,6 +3,7 @@ ARG PROFILE=not-defined
 WORKDIR /work
 COPY ./pom.xml ./pom.xml
 COPY ./infrastructure ./infrastructure
+COPY ./platform ./platform
 RUN mvn clean package -P$PROFILE
 
 FROM openjdk:11
