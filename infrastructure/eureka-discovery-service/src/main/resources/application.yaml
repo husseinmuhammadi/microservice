@@ -38,7 +38,7 @@ spring:
       on-profile: stage
 
 server:
-  port: 80
+  port: 8761
 
 ---
 
@@ -48,5 +48,5 @@ spring:
       on-profile: prod
 
 server:
-  port: 80
+  port: 8761
 
