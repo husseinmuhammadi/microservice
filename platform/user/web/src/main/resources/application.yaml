@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 0
   servlet:
     context-path: /
 
@@ -9,7 +9,7 @@ eureka:
 
 spring:
   profiles:
-    active: @active.profiles@
+    active: ${spring.active.profiles}
   application:
     name: users
   jpa:
@@ -34,12 +34,14 @@ management:
 ---
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: local
   devtools:
     restart:
       enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:55432/digiboy
+    url: jdbc:postgresql://localhost:15432/digiboy
     username: digiboy
     password: 123456
     driver-class-name: org.postgresql.Driver
@@ -52,7 +54,9 @@ eureka:
 ---
 
 spring:
-  profiles: stage
+  config:
+    activate:
+      on-profile: stage
   datasource:
     url: jdbc:postgresql://postgres:5432/digiboy
     username: digiboy
@@ -63,7 +67,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://eureka-discovery-service:8761/eureka/
+
 ---
 
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile: prod
