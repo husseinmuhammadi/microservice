@@ -54,8 +54,8 @@ class UsersResourceTest {
     void name() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .content("{\"username\":\"1006\",\"password\":\"1\", \"confirmPassword\":\"2\",\"email\":\"hossein.mohammadi@outlook.com\"}")
-                        .contentType(MediaType.APPLICATION_JSON)
-                ).andDo(MockMvcResultHandlers.print())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
