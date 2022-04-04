@@ -1,6 +1,7 @@
 package com.digiboy.platform.users.web.resources;
 
 import com.digiboy.platform.users.api.UserService;
+import com.digiboy.platform.users.web.mapper.CreateUserMapperImpl;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 //@SpringBootTest
 //@AutoConfigureMockMvc
 @WebMvcTest
-//@Import({CreateUserMapperImpl.class})
+@Import({CreateUserMapperImpl.class})
 class UserResourceTest {
 
     @Autowired

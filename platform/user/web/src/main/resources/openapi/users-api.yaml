@@ -1,0 +1,38 @@
+openapi: 3.0.3
+info:
+  title: Users Microservice
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      description: Find list of users based on given username and email
+      operationId: findUsers
+      parameters:
+        - in: query
+          name: username
+          required: false
+          schema:
+            type: string
+            maxLength: 40
+          example: username
+        - in: query
+          name: email
+          required: false
+          schema:
+            type: string
+            format: email
+      responses:
+        200:
+          description: Retrive the list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    username:
+                      type: string
+                    email:
+                      type: string
+                      format: email
+
