@@ -3,10 +3,10 @@ package com.digiboy.platform.users.web.resources;
 import com.digiboy.platform.users.api.UserService;
 import com.digiboy.platform.users.dto.UserDTO;
 import com.digiboy.platform.users.generated.v1.api.UsersApi;
+import com.digiboy.platform.users.generated.v1.model.CreateUserRequest;
+import com.digiboy.platform.users.generated.v1.model.CreateUserResponse;
 import com.digiboy.platform.users.generated.v1.model.User;
 import com.digiboy.platform.users.web.mapper.CreateUserMapper;
-import com.digiboy.platform.users.web.model.CreateUserRequest;
-import com.digiboy.platform.users.web.model.CreateUserResponse;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1")
 public class UsersResource implements UsersApi {
 
     private final Logger logger;
@@ -40,11 +40,8 @@ public class UsersResource implements UsersApi {
         return UsersApi.super.findUsers(username, email);
     }
 
-    @PostMapping(
-            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
-    )
-    public ResponseEntity<CreateUserResponse> save(@Valid @RequestBody CreateUserRequest createUserRequest) {
+    @Override
+    public ResponseEntity<CreateUserResponse> saveUser(CreateUserRequest createUserRequest) {
         UserDTO user = mapper.map(createUserRequest);
         user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
         CreateUserResponse response = mapper.map(service.save(user));

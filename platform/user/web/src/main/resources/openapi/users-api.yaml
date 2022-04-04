@@ -5,7 +5,7 @@ info:
 paths:
   /users:
     get:
-      description: Find list of users based on given username and email
+      description: Return list of users based on given paramters
       operationId: findUsers
       parameters:
         - in: query
@@ -23,24 +23,70 @@ paths:
             format: email
       responses:
         200:
-          description: Retrive the list of users
+          description: A list of users is populated
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+    post:
+      description: Save a new user into database
+      operationId: saveUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        200:
+          description: User save sucessfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
 
 components:
   schemas:
     User:
       type: object
       properties:
-        username:
-          type: string
         userId:
           type: string
           format: uuid
+        username:
+          type: string
         email:
           type: string
           format: email
+
+    CreateUserRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    CreateUserResponse:
+      type: object
+      required:
+        - userId
+        - email
+      properties:
+        userId:
+          type: string
+        email:
+          type: string
+          format: email
+
+    Credential:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
