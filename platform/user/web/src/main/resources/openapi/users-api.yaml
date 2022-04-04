@@ -29,10 +29,18 @@ paths:
               schema:
                 type: array
                 items:
-                  properties:
-                    username:
-                      type: string
-                    email:
-                      type: string
-                      format: email
+                  $ref: '#/components/schemas/User'
 
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        userId:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email

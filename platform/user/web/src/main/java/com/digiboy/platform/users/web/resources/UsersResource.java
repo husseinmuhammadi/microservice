@@ -2,6 +2,8 @@ package com.digiboy.platform.users.web.resources;
 
 import com.digiboy.platform.users.api.UserService;
 import com.digiboy.platform.users.dto.UserDTO;
+import com.digiboy.platform.users.generated.v1.api.UsersApi;
+import com.digiboy.platform.users.generated.v1.model.User;
 import com.digiboy.platform.users.web.mapper.CreateUserMapper;
 import com.digiboy.platform.users.web.model.CreateUserRequest;
 import com.digiboy.platform.users.web.model.CreateUserResponse;
@@ -14,10 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UsersResource {
+public class UsersResource implements UsersApi {
 
     private final Logger logger;
     private final UserService service;
@@ -32,9 +35,9 @@ public class UsersResource {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping
-    public String status() {
-        return "Hello";
+    @Override
+    public ResponseEntity<List<User>> findUsers(String username, String email) {
+        return UsersApi.super.findUsers(username, email);
     }
 
     @PostMapping(
