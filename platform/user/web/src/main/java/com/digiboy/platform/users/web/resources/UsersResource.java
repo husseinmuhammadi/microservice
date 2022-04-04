@@ -14,11 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-public class UserResource {
+public class UsersResource {
 
     private final Logger logger;
     private final UserService service;
@@ -27,7 +26,7 @@ public class UserResource {
     @Autowired
     private CreateUserMapper mapper;
 
-    public UserResource(Logger logger, UserService service, PasswordEncoder passwordEncoder) {
+    public UsersResource(Logger logger, UserService service, PasswordEncoder passwordEncoder) {
         this.logger = logger;
         this.service = service;
         this.passwordEncoder = passwordEncoder;

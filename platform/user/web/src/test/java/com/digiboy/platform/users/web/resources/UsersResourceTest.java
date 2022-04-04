@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 //@AutoConfigureMockMvc
 @WebMvcTest
 @Import({CreateUserMapperImpl.class})
-class UserResourceTest {
+class UsersResourceTest {
 
     @Autowired
     private MockMvc mockMvc;
