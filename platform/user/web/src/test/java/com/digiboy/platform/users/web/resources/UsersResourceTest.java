@@ -50,15 +50,6 @@ class UsersResourceTest {
         }
     }
 
-    @Test
-    void name() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/users")
-                        .content("{\"username\":\"1006\",\"password\":\"1\", \"confirmPassword\":\"2\",\"email\":\"hossein.mohammadi@outlook.com\"}")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated());
-    }
-
     @ParameterizedTest
     @ValueSource(strings = "mock-data/create-user.json")
     void itShouldWork(String resourceName) throws Exception {
@@ -91,4 +82,6 @@ class UsersResourceTest {
                     ));
         }
     }
+
+
 }

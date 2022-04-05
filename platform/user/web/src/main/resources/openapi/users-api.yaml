@@ -64,11 +64,15 @@ components:
       type: object
       required:
         - email
+        - password
+        - confirmPassword
       properties:
         email:
           type: string
           format: email
         password:
+          type: string
+        confirmPassword:
           type: string
 
     CreateUserResponse:
