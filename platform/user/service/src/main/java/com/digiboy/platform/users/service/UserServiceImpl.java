@@ -44,12 +44,12 @@ public class UserServiceImpl extends ServiceBase implements UserService {
         System.out.println("--------------------------------------------");
         User user = mapper.map(userDTO);
 
-        user.setUserId(UUID.randomUUID().toString());
+//        user.setUserId(UUID.randomUUID());
 
         final String username = user.getUsername().toLowerCase();
         user.setUsername(username);
 
-        if (repository.existsById(user.getUsername())) {
+        if (repository.existsById(user.getUserId())) {
             logger.warn("User {} already exists, it will be updated", username);
         }
 
