@@ -21,6 +21,8 @@
 
         <spring-boot-maven-plugin.version>2.6.3</spring-boot-maven-plugin.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <openapi-generator-maven-plugin.version>5.1.0</openapi-generator-maven-plugin.version>
     </properties>
 
     <modules>

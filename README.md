@@ -23,3 +23,9 @@ docker images "digilab/*"
 docker rmi $(docker images "digilab/*" -q)
 ```
 
+##Open API / Swagger
+
+```
+cd swagger-editor
+http-server -p 18000
+```
