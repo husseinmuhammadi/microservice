@@ -5,7 +5,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_USERS_USERNAME", columnNames = {"username"})
+        @UniqueConstraint(name = "UQ_USERS_USERNAME", columnNames = {"username"}),
+        @UniqueConstraint(name = "UQ_USERS_EMAIL", columnNames = {"email"}),
 })
 public class User implements DomainEntity {
 

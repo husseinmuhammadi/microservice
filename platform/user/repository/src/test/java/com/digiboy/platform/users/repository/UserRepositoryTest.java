@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
@@ -37,6 +38,15 @@ class UserRepositoryTest {
         repository.save(user2);
 
         assertThrows(DataIntegrityViolationException.class, () -> repository.flush());
+    }
+
+    @Test
+    void itIsPossibleToSaveToUserWithEmptyUsername() {
+        User user1 = new User();
+        User user2 = new User();
+        repository.save(user1);
+        repository.save(user2);
+        assertDoesNotThrow(() -> repository.flush());
     }
 
 }
