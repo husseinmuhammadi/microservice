@@ -1,8 +1,10 @@
 package com.digiboy.platform.users.dto;
 
+import java.util.UUID;
+
 public class UserDTO implements DataTransferObject {
 
-    private String userId;
+    private UUID userId;
 
     private String username;
 
@@ -10,11 +12,11 @@ public class UserDTO implements DataTransferObject {
 
     private String email;
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

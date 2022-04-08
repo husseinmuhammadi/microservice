@@ -1,16 +1,20 @@
 package com.digiboy.platform.users.to;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(name = "UQ_USERS_USERNAME", columnNames = {"username"})
+        @UniqueConstraint(name = "UQ_USERS_USERNAME", columnNames = {"username"}),
+        @UniqueConstraint(name = "UQ_USERS_EMAIL", columnNames = {"email"}),
 })
 public class User implements DomainEntity {
 
     @Id
     @Column(name = "user_id")
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Type(type="uuid-char")
+    private UUID userId;
 
     @Column(name = "username")
     private String username;
@@ -21,11 +25,11 @@ public class User implements DomainEntity {
     @Column(name = "email")
     private String email;
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
