@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl extends ServiceBase implements UserService {
@@ -41,7 +42,12 @@ public class UserServiceImpl extends ServiceBase implements UserService {
     public UserDTO save(UserDTO userDTO) {
         User user = mapper.map(userDTO);
 
-        final String username = user.getUsername().toLowerCase();
+        final String username = Optional.ofNullable(user.getUsername())
+                .map(String::toLowerCase).orElseThrow(IllegalArgumentException::new);
+
+        if (username.isBlank())
+            throw new IllegalArgumentException("Username can not be empty");
+
         user.setUsername(username);
 
         if (repository.existsById(user.getUserId())) {
