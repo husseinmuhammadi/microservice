@@ -14,7 +14,7 @@
 
     <properties>
 
-        <openapi-generator.root.package>com.digiboy.platform.users.generated</openapi-generator.root.package>
+        <openapi-generator.root.package>com.digiboy.platform.user.generated</openapi-generator.root.package>
     </properties>
 
     <build>
