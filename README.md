@@ -6,6 +6,7 @@
 ####local
  - Run all projects in IntelliJ IDEA
  - Database will be h2 in memory
+ - Each service should run without spring cloud config
 
 ####dev
  - Run infrastructure projects on docker 
@@ -13,6 +14,8 @@
  - Ports are accessible from host
  - Services could call directly
  - Database will be PostgreSQL
+ - Configuration load from spring cloud config
+ - ddl-update: auto
 
 ####stage 
  - All projects will run on docker
@@ -20,7 +23,8 @@
  - Only api-gateway will accessible from host
 
 ####prod
-
+ - ddl-update: none
+ - use flyway for running the scripts
 
 ##Docker 
 
