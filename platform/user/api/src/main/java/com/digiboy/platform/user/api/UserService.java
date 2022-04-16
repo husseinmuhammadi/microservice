@@ -8,4 +8,6 @@ public interface UserService {
     Page<UserDTO> findAll(Pageable pageable);
 
     UserDTO save(UserDTO userDTO);
+
+    boolean exists(String username);
 }

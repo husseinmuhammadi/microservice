@@ -3,9 +3,8 @@ package com.digiboy.platform.user.web.resources;
 import com.digiboy.platform.user.api.UserService;
 import com.digiboy.platform.user.generated.v1.model.CreateUserRequest;
 import com.digiboy.platform.user.web.config.mapper.MapperConfiguration;
-import com.digiboy.platform.user.web.mapper.CreateUserMapperImpl;
+import com.digiboy.platform.user.web.mapper.UserModelMapperImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
@@ -27,7 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.io.InputStream;
 
 @WebMvcTest
-@Import({CreateUserMapperImpl.class, MapperConfiguration.class})
+@Import({UserModelMapperImpl.class, MapperConfiguration.class})
 class UsersResourceTest {
 
     @Autowired

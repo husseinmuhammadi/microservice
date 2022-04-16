@@ -6,12 +6,11 @@ import com.digiboy.platform.user.generated.v1.model.CreateUserResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper()
-public interface CreateUserMapper {
-
-    @Mapping(target = "password", ignore = true)
+@Mapper(uses = EncryptedPasswordMapper.class)
+public interface UserModelMapper {
+    @Mapping(target = "username", source = "email")
+    @Mapping(target = "encryptedPassword", source = "password", qualifiedBy = EncodedMapping.class)
     UserDTO map(CreateUserRequest request);
 
     CreateUserResponse map(UserDTO user);
-
 }

@@ -1,14 +1,17 @@
 package com.digiboy.platform.user.dto;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class UserDTO implements DataTransferObject {
+public class UserDTO implements DataTransferObject, Serializable {
+
+    private static final long serialVersionUID = 7119662012368017730L;
 
     private UUID userId;
 
     private String username;
 
-    private String password;
+    private String encryptedPassword;
 
     private String email;
 
@@ -28,12 +31,12 @@ public class UserDTO implements DataTransferObject {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEncryptedPassword() {
+        return encryptedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
     }
 
     public String getEmail() {

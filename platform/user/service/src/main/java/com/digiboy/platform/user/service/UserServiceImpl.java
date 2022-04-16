@@ -2,6 +2,7 @@ package com.digiboy.platform.user.service;
 
 import com.digiboy.platform.user.api.UserService;
 import com.digiboy.platform.user.dto.UserDTO;
+import com.digiboy.platform.user.exception.UsernameAlreadyExistsException;
 import com.digiboy.platform.user.mapper.UserMapper;
 import com.digiboy.platform.user.repository.UserRepository;
 import com.digiboy.platform.user.to.User;
@@ -50,16 +51,14 @@ public class UserServiceImpl extends ServiceBase implements UserService {
 
         user.setUsername(username);
 
-        if (repository.existsById(user.getUserId())) {
-            logger.warn("User {} already exists, it will be updated", username);
-        }
+        if (repository.existsByUsername(username))
+            throw new UsernameAlreadyExistsException(username + "already exists");
 
         return mapper.map(repository.save(user));
     }
 
-//    @Override
-//    public boolean exists(String username) {
-//        return repository.existsById(username.toLowerCase());
-//    }
-
+    @Override
+    public boolean exists(String username) {
+        return repository.existsByUsername(username.toLowerCase());
+    }
 }
