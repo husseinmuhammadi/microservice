@@ -1,4 +1,4 @@
-#Micro Service Tutorial
+# Micro Service Tutorial
 
 
 ###Profiles:
@@ -8,7 +8,7 @@
  - Database will be h2 in memory
  - Each service should run without spring cloud config
 
-####dev
+#### dev
  - Run infrastructure projects on docker 
  - Other projects will run in IntelliJ IDEA  
  - Ports are accessible from host
