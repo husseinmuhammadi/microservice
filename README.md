@@ -1,9 +1,9 @@
 # Micro Service Tutorial
 
 
-###Profiles:
+### Profiles:
 
-####local
+#### local
  - Run all projects in IntelliJ IDEA
  - Database will be h2 in memory
  - Each service should run without spring cloud config
@@ -17,16 +17,16 @@
  - Configuration load from spring cloud config
  - ddl-update: auto
 
-####stage 
+#### stage 
  - All projects will run on docker
  - Ports are not accessible from host 
  - Only api-gateway will accessible from host
 
-####prod
+#### prod
  - ddl-update: none
  - use flyway for running the scripts
 
-##Docker 
+## Docker 
 
 ```
 docker images "digilab/*"
@@ -34,7 +34,7 @@ docker images "digilab/*"
 docker rmi $(docker images "digilab/*" -q)
 ```
 
-##Open API / Swagger
+## Open API / Swagger
 
 ```
 cd swagger-editor
