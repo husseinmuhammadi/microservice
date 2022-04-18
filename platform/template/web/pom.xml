@@ -20,7 +20,7 @@
     </properties>
 
     <build>
-        <finalName>users-service</finalName>
+        <finalName>demo</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -44,7 +44,7 @@
                             <library>spring-boot</library>
                             <!--                            <library>spring-cloud</library>-->
                             <inputSpec>
-                                ${project.basedir}/src/main/resources/openapi/users-api.yaml
+                                ${project.basedir}/src/main/resources/openapi/platform-api.yaml
                             </inputSpec>
                             <output>${project.build.directory}/generated-sources</output>
 
@@ -90,21 +90,6 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-
 <!--        <dependency>-->
 <!--            <groupId>${project.groupId}</groupId>-->
 <!--            <artifactId>users-logger</artifactId>-->
@@ -114,13 +99,13 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>platformm-api</artifactId>
+            <artifactId>template-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>platform-service</artifactId>
+            <artifactId>template-service</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
