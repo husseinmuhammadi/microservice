@@ -1,6 +1,48 @@
-server:
-  port: 9010
-
 spring:
   application:
     name: auth-service
+  profiles:
+    active: ${spring.active.profiles}
+
+--- # local
+
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 8003
+eureka:
+  client:
+    enabled: false
+
+--- # dev
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+server:
+  port: 8003
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+--- # stage
+
+spring:
+  config:
+    activate:
+      on-profile: stage
+server:
+  port: 0
+
+--- # prod
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+server:
+  port: 0
