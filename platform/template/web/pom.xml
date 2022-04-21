@@ -5,19 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.digiboy.platform.users</groupId>
-        <artifactId>users-parent</artifactId>
+        <groupId>com.digiboy.platform.template</groupId>
+        <artifactId>template-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>users-web</artifactId>
+    <artifactId>template-web</artifactId>
+
+    <name>Template Web Module</name>
+    <description>Template Web Module</description>
 
     <properties>
-        <openapi-generator.root.package>com.digiboy.platform.user.generated</openapi-generator.root.package>
+        <openapi-generator.root.package>com.digiboy.platform.template.generated</openapi-generator.root.package>
     </properties>
 
     <build>
-        <finalName>users-service</finalName>
+        <finalName>demo</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -39,9 +42,9 @@
                         <configuration>
                             <generatorName>spring</generatorName>
                             <library>spring-boot</library>
-<!--                            <library>spring-cloud</library>-->
+                            <!--                            <library>spring-cloud</library>-->
                             <inputSpec>
-                                ${project.basedir}/src/main/resources/openapi/users-api.yaml
+                                ${project.basedir}/src/main/resources/openapi/platform-api.yaml
                             </inputSpec>
                             <output>${project.build.directory}/generated-sources</output>
 
@@ -87,37 +90,22 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>${project.groupId}</groupId>-->
+<!--            <artifactId>users-logger</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>users-logger</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>users-api</artifactId>
+            <artifactId>template-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>users-service</artifactId>
+            <artifactId>template-service</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>

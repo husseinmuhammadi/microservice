@@ -1,0 +1,19 @@
+openapi: 3.0.3
+info:
+  title: Template Sepecifications
+  description: Open Api Template Specifications
+  version: 1.0.0
+paths:
+  /index:
+    get:
+      responses:
+        200:
+          description: Home page
+          content:
+            application/json:
+              schema:
+                type: object
+
+
+
+

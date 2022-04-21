@@ -2,7 +2,10 @@
 
 
 ### Profiles:
-
+```
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+java -jar -Dspring.profiles.active=dev demo.jar
+```
 #### local
  - Run all projects in IntelliJ IDEA
  - Database will be h2 in memory

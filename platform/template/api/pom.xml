@@ -5,19 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.digiboy</groupId>
-        <artifactId>digiboy-parent</artifactId>
+        <artifactId>template-parent</artifactId>
+        <groupId>com.digiboy.platform.template</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.digiboy.platform</groupId>
-    <artifactId>platform-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <artifactId>template-api</artifactId>
 
-    <modules>
-        <module>template</module>
-        <module>user</module>
-        <module>auth</module>
-    </modules>
+    <name>Template Api Module</name>
+    <description>Template Api Module</description>
 </project>
