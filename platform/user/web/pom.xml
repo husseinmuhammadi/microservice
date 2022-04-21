@@ -13,7 +13,6 @@
     <artifactId>users-web</artifactId>
 
     <properties>
-
         <openapi-generator.root.package>com.digiboy.platform.user.generated</openapi-generator.root.package>
     </properties>
 
