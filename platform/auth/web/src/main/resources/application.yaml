@@ -8,6 +8,7 @@ management:
     web:
       exposure:
         include: "info,health"
+
 --- # local
 
 spring:
@@ -15,7 +16,7 @@ spring:
     activate:
       on-profile: local
 server:
-  port: 8003
+  port: 8002
 eureka:
   client:
     enabled: false
@@ -27,7 +28,7 @@ spring:
     activate:
       on-profile: dev
 server:
-  port: 8003
+  port: 8002
 eureka:
   client:
     serviceUrl:

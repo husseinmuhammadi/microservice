@@ -36,7 +36,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 //        http.addFilterAt(new AuthenticationFilter(super.authenticationManager()), UsernamePasswordAuthenticationFilter.class);
         http.addFilter(new AuthenticationFilter(super.authenticationManager()));
 
-        http.authorizeHttpRequests()
+        http.authorizeRequests()
                 .anyRequest().permitAll();
     }
 
