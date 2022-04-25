@@ -1,18 +1,17 @@
 package com.digiboy.platform.auth.web.config.security;
 
 import com.digiboy.platform.auth.api.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.digiboy.platform.auth.web.config.security.filters.AuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
@@ -29,19 +28,31 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable();
+//
+////        http.addFilterAt(new AuthenticationFilter(super.authenticationManager()), UsernamePasswordAuthenticationFilter.class);
+//        // http.addFilter(new AuthenticationFilter(super.authenticationManager()));
+//
+//        http.authorizeRequests()
+//                .anyRequest().permitAll();
+//    }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-
-//        http.addFilterAt(new AuthenticationFilter(super.authenticationManager()), UsernamePasswordAuthenticationFilter.class);
-        http.addFilter(new AuthenticationFilter(super.authenticationManager()));
-
-        http.authorizeRequests()
-                .anyRequest().permitAll();
+//        super.configure(http);
+        http.csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .addFilter(new AuthenticationFilter(authenticationManager()))
+                .authorizeRequests()
+                .antMatchers("/actuator/*", "/login", "/check").permitAll()
+                .anyRequest().authenticated();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userService);
     }
 }
