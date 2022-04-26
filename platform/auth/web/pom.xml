@@ -50,11 +50,6 @@
                             <enablePostProcessFile>true</enablePostProcessFile>
                             <skipOverwrite>false</skipOverwrite>
                             <configOptions>
-                                <!--                                <interfaceOnly>true</interfaceOnly>-->
-                                <!--                                <sourceFolder>openapi-generator</sourceFolder>-->
-                                <!--                                <useBeanValidation>true</useBeanValidation>-->
-                                <!--                                <dateLibrary>java8</dateLibrary>-->
-                                <!--                                <serializableModel>true</serializableModel>-->
                             </configOptions>
                         </configuration>
                     </execution>
