@@ -17,6 +17,6 @@ public class ApplicationReadyEventListener {
     @EventListener
     public void onApplicationReadyEvent(ApplicationReadyEvent event) {
         ApplicationContext applicationContext = event.getApplicationContext();
-        Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(beanName -> LOGGER.info("{}", beanName));
+        // Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(beanName -> LOGGER.info("{}", beanName));
     }
 }

@@ -11,6 +11,45 @@
 
     <artifactId>auth-api</artifactId>
 
+    <properties>
+        <openapi-generator.root.package>com.digiboy.platform.auth.generated</openapi-generator.root.package>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-users-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <generatorName>spring</generatorName>
+                            <library>spring-cloud</library>
+
+                            <inputSpec>
+                                ${project.basedir}/src/main/resources/open-api/client/users-api.yaml
+                            </inputSpec>
+                            <output>${project.build.directory}/generated-sources/open-api/client</output>
+                            <apiPackage>${openapi-generator.root.package}.v1.api</apiPackage>
+                            <modelPackage>${openapi-generator.root.package}.v1.model</modelPackage>
+                            <invokerPackage>${openapi-generator.root.package}.v1.invoker</invokerPackage>
+
+                            <enablePostProcessFile>true</enablePostProcessFile>
+                            <skipOverwrite>false</skipOverwrite>
+                            <configOptions>
+                                <interfaceOnly>true</interfaceOnly>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
 <!--        <dependency>-->
@@ -18,5 +57,37 @@
 <!--            <artifactId>spring-data-commons</artifactId>-->
 <!--            <scope>provided</scope>-->
 <!--        </dependency>-->
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-core</artifactId>
+            <version>${springfox-swagger2.version}</version>
+        </dependency>
     </dependencies>
 </project>
