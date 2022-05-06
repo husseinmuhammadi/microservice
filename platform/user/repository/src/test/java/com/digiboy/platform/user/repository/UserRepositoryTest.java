@@ -58,7 +58,7 @@ class UserRepositoryTest {
         user.setEmail(email);
         userRepository.save(user);
         // repository.flush();
-        assertThat(userRepository.findAll(UserSpecification.emailEquals("hmohammadi@hexaWare.com")).size()).isEqualTo(1);
+        assertThat(userRepository.findAll(UserSpecification.emailEqualsIgnoreCase("hmohammadi@hexaWare.com")).size()).isEqualTo(1);
     }
 
     @Test
