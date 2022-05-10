@@ -1,30 +1,35 @@
 package com.digiboy.platform.user.web.advice;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
 
 public class ErrorMessage {
-    private final int statusCode;
-    private final Date timestamp;
-    private final String message;
+    private final LocalDateTime timestamp;
+    private final Set<String> messages;
     private final String description;
 
-    public ErrorMessage(int statusCode, Date timestamp, String message, String description) {
-        this.statusCode = statusCode;
+    public ErrorMessage(LocalDateTime timestamp, Set<String> messages, String description) {
         this.timestamp = timestamp;
-        this.message = message;
+        this.messages = messages;
         this.description = description;
     }
 
-    public int getStatusCode() {
-        return statusCode;
+    public ErrorMessage(String message) {
+        this(Collections.singleton(message));
     }
 
-    public Date getTimestamp() {
+    public ErrorMessage(Set<String> messages) {
+        this(LocalDateTime.now(), messages, null);
+    }
+
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public String getMessage() {
-        return message;
+    public Set<String> getMessages() {
+        return messages;
     }
 
     public String getDescription() {
