@@ -3,6 +3,7 @@ package com.digiboy.platform.user.web.resources;
 import com.digiboy.platform.user.api.UserService;
 import com.digiboy.platform.user.generated.v1.model.CreateUserRequest;
 import com.digiboy.platform.user.web.config.mapper.MapperConfiguration;
+import com.digiboy.platform.user.web.mapper.EncryptedPasswordMapper;
 import com.digiboy.platform.user.web.mapper.UserModelMapperImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,7 +27,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.io.InputStream;
 
 @WebMvcTest
-@Import({UserModelMapperImpl.class, MapperConfiguration.class})
+@Import({UserModelMapperImpl.class, MapperConfiguration.class, EncryptedPasswordMapper.class})
 class UsersResourceTest {
 
     @Autowired

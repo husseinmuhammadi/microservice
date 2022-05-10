@@ -36,9 +36,6 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleConstraintViolationException(ConstraintViolationException e) {
-
-        System.out.println(e.getMessage());
-
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
 
         Set<String> messages = new HashSet<>(constraintViolations.size());

@@ -17,7 +17,7 @@ class SpringActiveProfilesTest {
     Environment env;
 
     @Test
-    void activeProfiles() {
+    void activeProfilesInTestsNotRelatedToSpringActiveProfilesEnvironment() {
         assertThat(env.getActiveProfiles()).hasSize(1);
         assertThat(env.getActiveProfiles()).containsExactly("test");
     }

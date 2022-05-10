@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -35,7 +37,23 @@ public class UsersResource implements UsersApi {
 
     @Override
     public ResponseEntity<List<User>> findUsers(String username, String email) {
-        return UsersApi.super.findUsers(username, email);
+//        service.findByEmailAndUsername()
+//        if (username!=null)
+//        if (email!=null)
+//
+//        service.findByEmail()
+//        return super.findUsers(username, email);
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<User> findUserByEmail(String email) {
+        return ResponseEntity.ok(mapper.toUser(service.findByEmail(email)));
+    }
+
+    @Override
+    public ResponseEntity<Void> findUserByUserId(UUID userId) {
+        return UsersApi.super.findUserByUserId(userId);
     }
 
     @Override
