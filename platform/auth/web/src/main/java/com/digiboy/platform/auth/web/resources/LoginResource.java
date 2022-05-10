@@ -17,7 +17,6 @@ public class LoginResource {
     @GetMapping("/check")
     public String check(){
         ResponseEntity<CreateUserResponse> response = usersService.saveUser(new CreateUserRequest().email("g@g").password("1").confirmPassword("1"));
-        System.out.println("--->"+response.getStatusCode());
-        return usersService.index();
+        return String.valueOf(response.getStatusCode());
     }
 }

@@ -3,11 +3,13 @@ package com.eightbitsolutions.infrastructure.gateway;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
-public class GatewayApplicationTests {
+class ApiGatewayApplicationTest {
 
     @Test
-    public void contextLoads() {
-    }
+    void loadContext() {
 
+    }
 }

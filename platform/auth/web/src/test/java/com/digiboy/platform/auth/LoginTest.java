@@ -34,7 +34,7 @@ public class LoginTest {
     void sendLoginRequest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("hmohammadi");
+        loginRequest.setEmail("hmohammadi@mail.com");
         loginRequest.setPassword("123456");
         mockMvc.perform(MockMvcRequestBuilders.post("/login?username=hossein")
                 .contentType(MediaType.APPLICATION_JSON)

@@ -1,5 +1,7 @@
 package com.digiboy.platform.user.to;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -13,7 +15,7 @@ public class User implements DomainEntity {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Type(type="uuid-char")
+    @Type(type = "uuid-char")
     private UUID userId;
 
     @Column(name = "username")
