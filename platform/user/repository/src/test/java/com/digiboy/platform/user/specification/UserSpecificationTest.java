@@ -21,7 +21,7 @@ class UserSpecificationTest {
 
     @Test
     @Sql("classpath:sql/users.sql")
-    void shouldReturnSingleUserWhenSearchByUsernameAndEmail() {
+    void shouldReturnSingleUser_whenSearchByUsernameAndEmail() {
         assertEquals(2, userRepository.count());
 
         assertEquals(1, userRepository.findAll(emailEqualsIgnoreCase("info@example.com")).size());
