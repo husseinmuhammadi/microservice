@@ -2,6 +2,7 @@ package com.digiboy.platform.user.service;
 
 import com.digiboy.platform.user.api.UserService;
 import com.digiboy.platform.user.dto.UserDTO;
+import com.digiboy.platform.user.exception.UserNotFoundException;
 import com.digiboy.platform.user.exception.UsernameAlreadyExistsException;
 import com.digiboy.platform.user.mapper.UserMapper;
 import com.digiboy.platform.user.repository.UserRepository;
@@ -46,7 +47,8 @@ public class UserServiceImpl extends ServiceBase implements UserService {
 
     @Override
     public UserDTO findByEmail(String email) {
-        return mapper.map(repository.findByEmail(email));
+        return Optional.ofNullable(repository.findByEmail(email)).map(mapper::map)
+                .orElseThrow(UserNotFoundException::new);
     }
 
     @Override

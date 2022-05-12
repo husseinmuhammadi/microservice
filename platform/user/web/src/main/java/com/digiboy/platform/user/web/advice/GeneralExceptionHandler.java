@@ -1,5 +1,7 @@
 package com.digiboy.platform.user.web.advice;
 
+import com.digiboy.platform.user.exception.ServiceException;
+import com.digiboy.platform.user.exception.UserNotFoundException;
 import com.digiboy.platform.user.exception.UsernameAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolation;
@@ -23,8 +24,8 @@ import java.util.stream.Collectors;
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({AccessDeniedException.class})
-    public ResponseEntity<Object> handleAccessDeniedException(Exception ex, WebRequest request) {
-        return new ResponseEntity<>("Access denied message here", HttpStatus.FORBIDDEN);
+    public ResponseEntity<Object> handleAccessDeniedException(Exception e, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied message here");
     }
 
     @ExceptionHandler({UsernameAlreadyExistsException.class})
@@ -46,5 +47,11 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
                         constraintViolation.getMessage())
                 ).collect(Collectors.toList()));
         return new ErrorMessage(messages);
+    }
+
+    @ExceptionHandler({UserNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ServiceErrorMessage handleUserNotFound(ServiceException e) {
+        return new ServiceErrorMessage(e.getErrorCode(), e.getMessage());
     }
 }
