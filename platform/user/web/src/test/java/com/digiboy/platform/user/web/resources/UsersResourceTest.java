@@ -24,7 +24,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.io.InputStream;
+import java.util.Set;
 
 @WebMvcTest
 @Import({UserModelMapperImpl.class, MapperConfiguration.class, EncryptedPasswordMapper.class})
@@ -62,6 +65,24 @@ class UsersResourceTest {
                     .andExpect(ResultMatcher.matchAll(
                             MockMvcResultMatchers.status().isCreated()
                     ));
+        }
+    }
+
+    @Autowired
+    Validator validator;
+    @ParameterizedTest
+    @ValueSource(strings = "mock-data/invalid-requests/create-user-request-empty-confirm-password.json")
+    void invalidRequest(String resourceName) throws Exception {
+        try (InputStream in = this.getClass().getClassLoader().getResourceAsStream(resourceName)) {
+            CreateUserRequest request = mapper.readValue(in, CreateUserRequest.class);
+            Set<ConstraintViolation<CreateUserRequest>> constraintViolations = validator.validate(request);
+            if (!constraintViolations.isEmpty()){
+                constraintViolations.stream().map(constraintViolation -> String.format("%s: '%s' %s",
+                        constraintViolation.getPropertyPath(),
+                        constraintViolation.getInvalidValue(),
+                        constraintViolation.getMessage())
+                ).forEach(System.out::println);
+            }
         }
     }
 
