@@ -6,6 +6,9 @@ import com.digiboy.platform.user.generated.v1.api.UsersApi;
 import com.digiboy.platform.user.generated.v1.model.CreateUserRequest;
 import com.digiboy.platform.user.generated.v1.model.CreateUserResponse;
 import com.digiboy.platform.user.generated.v1.model.User;
+import com.digiboy.platform.user.generated.v1.model.UserDetails;
+import com.digiboy.platform.user.web.mapper.CreateUserMapper;
+import com.digiboy.platform.user.web.mapper.UserDetailsMapper;
 import com.digiboy.platform.user.web.mapper.UserModelMapper;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -27,7 +31,13 @@ public class UsersResource implements UsersApi {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserModelMapper mapper;
+    private UserModelMapper userModelMapper;
+
+    @Autowired
+    private UserDetailsMapper userDetailsMapper;
+
+    @Autowired
+    private CreateUserMapper createUserMapper;
 
     public UsersResource(Logger logger, UserService service, PasswordEncoder passwordEncoder) {
         this.logger = logger;
@@ -37,18 +47,12 @@ public class UsersResource implements UsersApi {
 
     @Override
     public ResponseEntity<List<User>> findUsers(String username, String email) {
-//        service.findByEmailAndUsername()
-//        if (username!=null)
-//        if (email!=null)
-//
-//        service.findByEmail()
-//        return super.findUsers(username, email);
-        return null;
+        return ResponseEntity.ok(service.findAll().stream().map(userDTO -> userModelMapper.toUser(userDTO)).collect(Collectors.toList()));
     }
 
     @Override
-    public ResponseEntity<User> findUserByEmail(String email) {
-        return ResponseEntity.ok(mapper.toUser(service.findByEmail(email)));
+    public ResponseEntity<UserDetails> findUserByEmail(String email) {
+        return ResponseEntity.ok(userDetailsMapper.map(service.findByEmail(email)));
     }
 
     @Override
@@ -58,8 +62,8 @@ public class UsersResource implements UsersApi {
 
     @Override
     public ResponseEntity<CreateUserResponse> saveUser(CreateUserRequest createUserRequest) {
-        UserDTO user = mapper.map(createUserRequest);
-        CreateUserResponse response = mapper.map(service.save(user));
+        UserDTO user = createUserMapper.map(createUserRequest);
+        CreateUserResponse response = createUserMapper.map(service.save(user));
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

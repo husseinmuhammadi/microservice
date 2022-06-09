@@ -3,7 +3,9 @@ package com.digiboy.platform.user.web.resources;
 import com.digiboy.platform.user.api.UserService;
 import com.digiboy.platform.user.generated.v1.model.CreateUserRequest;
 import com.digiboy.platform.user.web.config.mapper.MapperConfiguration;
+import com.digiboy.platform.user.web.mapper.CreateUserMapperImpl;
 import com.digiboy.platform.user.web.mapper.EncryptedPasswordMapper;
+import com.digiboy.platform.user.web.mapper.UserDetailsMapperImpl;
 import com.digiboy.platform.user.web.mapper.UserModelMapperImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,7 +32,13 @@ import java.io.InputStream;
 import java.util.Set;
 
 @WebMvcTest
-@Import({UserModelMapperImpl.class, MapperConfiguration.class, EncryptedPasswordMapper.class})
+@Import({
+        UserModelMapperImpl.class,
+        CreateUserMapperImpl.class,
+        UserDetailsMapperImpl.class,
+        MapperConfiguration.class,
+        EncryptedPasswordMapper.class
+})
 class UsersResourceTest {
 
     @Autowired
@@ -70,13 +78,14 @@ class UsersResourceTest {
 
     @Autowired
     Validator validator;
+
     @ParameterizedTest
     @ValueSource(strings = "mock-data/invalid-requests/create-user-request-empty-confirm-password.json")
     void invalidRequest(String resourceName) throws Exception {
         try (InputStream in = this.getClass().getClassLoader().getResourceAsStream(resourceName)) {
             CreateUserRequest request = mapper.readValue(in, CreateUserRequest.class);
             Set<ConstraintViolation<CreateUserRequest>> constraintViolations = validator.validate(request);
-            if (!constraintViolations.isEmpty()){
+            if (!constraintViolations.isEmpty()) {
                 constraintViolations.stream().map(constraintViolation -> String.format("%s: '%s' %s",
                         constraintViolation.getPropertyPath(),
                         constraintViolation.getInvalidValue(),
@@ -99,10 +108,7 @@ class UsersResourceTest {
                             .content(mapper.writeValueAsBytes(request)))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(ResultMatcher.matchAll(
-                            MockMvcResultMatchers.status().isBadRequest()
-                    ));
+                            MockMvcResultMatchers.status().isBadRequest()));
         }
     }
-
-
 }
