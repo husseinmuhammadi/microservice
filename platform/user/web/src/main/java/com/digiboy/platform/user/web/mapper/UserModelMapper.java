@@ -12,7 +12,9 @@ import java.util.List;
 
 @Mapper
 public interface UserModelMapper {
-    User toUser(UserDTO dto);
+    User map(UserDTO dto);
+
+    UserDTO map(User user);
 
     List<User> map(List<UserDTO> users);
 }

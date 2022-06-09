@@ -47,7 +47,7 @@ public class UsersResource implements UsersApi {
 
     @Override
     public ResponseEntity<List<User>> findUsers(String username, String email) {
-        return ResponseEntity.ok(service.findAll().stream().map(userDTO -> userModelMapper.toUser(userDTO)).collect(Collectors.toList()));
+        return ResponseEntity.ok(userModelMapper.map(service.findAll()));
     }
 
     @Override
