@@ -6,6 +6,9 @@ import com.digiboy.platform.user.generated.v1.api.UsersApi;
 import com.digiboy.platform.user.generated.v1.model.CreateUserRequest;
 import com.digiboy.platform.user.generated.v1.model.CreateUserResponse;
 import com.digiboy.platform.user.generated.v1.model.User;
+import com.digiboy.platform.user.generated.v1.model.UserInfo;
+import com.digiboy.platform.user.web.mapper.CreateUserMapper;
+import com.digiboy.platform.user.web.mapper.UserInfoMapper;
 import com.digiboy.platform.user.web.mapper.UserModelMapper;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,13 @@ public class UsersResource implements UsersApi {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserModelMapper mapper;
+    private UserModelMapper userModelMapper;
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private CreateUserMapper createUserMapper;
 
     public UsersResource(Logger logger, UserService service, PasswordEncoder passwordEncoder) {
         this.logger = logger;
@@ -37,18 +46,14 @@ public class UsersResource implements UsersApi {
 
     @Override
     public ResponseEntity<List<User>> findUsers(String username, String email) {
-//        service.findByEmailAndUsername()
-//        if (username!=null)
-//        if (email!=null)
-//
-//        service.findByEmail()
-//        return super.findUsers(username, email);
-        return null;
+        return ResponseEntity.ok(userModelMapper.map(
+                service.findAll()));
     }
 
     @Override
-    public ResponseEntity<User> findUserByEmail(String email) {
-        return ResponseEntity.ok(mapper.toUser(service.findByEmail(email)));
+    public ResponseEntity<UserInfo> findUserByEmail(String email) {
+        return ResponseEntity.ok(userInfoMapper.map(
+                service.findByEmail(email)));
     }
 
     @Override
@@ -58,8 +63,8 @@ public class UsersResource implements UsersApi {
 
     @Override
     public ResponseEntity<CreateUserResponse> saveUser(CreateUserRequest createUserRequest) {
-        UserDTO user = mapper.map(createUserRequest);
-        CreateUserResponse response = mapper.map(service.save(user));
+        UserDTO user = createUserMapper.map(createUserRequest);
+        CreateUserResponse response = createUserMapper.map(service.save(user));
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

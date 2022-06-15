@@ -1,19 +1,16 @@
 package com.digiboy.platform.user.web.mapper;
 
 import com.digiboy.platform.user.dto.UserDTO;
-import com.digiboy.platform.user.generated.v1.model.CreateUserRequest;
-import com.digiboy.platform.user.generated.v1.model.CreateUserResponse;
 import com.digiboy.platform.user.generated.v1.model.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
-@Mapper(uses = EncryptedPasswordMapper.class)
+import java.util.List;
+
+@Mapper
 public interface UserModelMapper {
-    @Mapping(target = "username", source = "email")
-    @Mapping(target = "encryptedPassword", source = "password", qualifiedBy = EncodedMapping.class)
-    UserDTO map(CreateUserRequest request);
+    User map(UserDTO dto);
 
-    CreateUserResponse map(UserDTO user);
+    UserDTO map(User user);
 
-    User toUser(UserDTO dto);
+    List<User> map(List<UserDTO> users);
 }

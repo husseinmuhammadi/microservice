@@ -1,6 +1,7 @@
 package com.digiboy.platform.auth.web.config.security.filters;
 
-import com.digiboy.platform.auth.web.model.LoginRequest;
+import com.digiboy.platform.auth.generated.v1.model.LoginByEmailRequest;
+import com.digiboy.platform.auth.generated.v1.model.LoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -39,7 +40,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            LoginRequest loginRequest = mapper.readValue(request.getInputStream(), LoginRequest.class);
+            LoginByEmailRequest loginRequest = mapper.readValue(request.getInputStream(), LoginByEmailRequest.class);
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         } catch (IOException e) {
             throw new BadCredentialsException("Username or password is invalid", e);

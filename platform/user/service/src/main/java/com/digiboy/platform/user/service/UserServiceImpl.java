@@ -36,8 +36,8 @@ public class UserServiceImpl extends ServiceBase implements UserService {
         this.logger = logger;
     }
 
-    public List<User> findAll() {
-        return repository.findAll();
+    public List<UserDTO> findAll() {
+        return mapper.map(repository.findAll());
     }
 
     @Override
