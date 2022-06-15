@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Users Microservice
-  version: 1.0.2
+  version: 1.0.3
 paths:
   /users:
     get:
@@ -76,7 +76,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetails'
+                $ref: '#/components/schemas/UserInfo'
 
 components:
   schemas:
@@ -92,7 +92,7 @@ components:
           type: string
           format: email
 
-    UserDetails:
+    UserInfo:
       type: object
       properties:
         userId:

@@ -6,9 +6,9 @@ import com.digiboy.platform.user.generated.v1.api.UsersApi;
 import com.digiboy.platform.user.generated.v1.model.CreateUserRequest;
 import com.digiboy.platform.user.generated.v1.model.CreateUserResponse;
 import com.digiboy.platform.user.generated.v1.model.User;
-import com.digiboy.platform.user.generated.v1.model.UserDetails;
+import com.digiboy.platform.user.generated.v1.model.UserInfo;
 import com.digiboy.platform.user.web.mapper.CreateUserMapper;
-import com.digiboy.platform.user.web.mapper.UserDetailsMapper;
+import com.digiboy.platform.user.web.mapper.UserInfoMapper;
 import com.digiboy.platform.user.web.mapper.UserModelMapper;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -34,7 +33,7 @@ public class UsersResource implements UsersApi {
     private UserModelMapper userModelMapper;
 
     @Autowired
-    private UserDetailsMapper userDetailsMapper;
+    private UserInfoMapper userInfoMapper;
 
     @Autowired
     private CreateUserMapper createUserMapper;
@@ -47,12 +46,14 @@ public class UsersResource implements UsersApi {
 
     @Override
     public ResponseEntity<List<User>> findUsers(String username, String email) {
-        return ResponseEntity.ok(userModelMapper.map(service.findAll()));
+        return ResponseEntity.ok(userModelMapper.map(
+                service.findAll()));
     }
 
     @Override
-    public ResponseEntity<UserDetails> findUserByEmail(String email) {
-        return ResponseEntity.ok(userDetailsMapper.map(service.findByEmail(email)));
+    public ResponseEntity<UserInfo> findUserByEmail(String email) {
+        return ResponseEntity.ok(userInfoMapper.map(
+                service.findByEmail(email)));
     }
 
     @Override

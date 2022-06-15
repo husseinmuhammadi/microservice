@@ -1,6 +1,6 @@
 package com.digiboy.platform.auth;
 
-import com.digiboy.platform.auth.web.model.LoginRequest;
+import com.digiboy.platform.auth.generated.v1.model.LoginByEmailRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
@@ -33,7 +31,7 @@ public class LoginTest {
     @Test
     void sendLoginRequest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        LoginRequest loginRequest = new LoginRequest();
+        LoginByEmailRequest loginRequest = new LoginByEmailRequest();
         loginRequest.setEmail("hmohammadi@mail.com");
         loginRequest.setPassword("123456");
         mockMvc.perform(MockMvcRequestBuilders.post("/login?username=hossein")

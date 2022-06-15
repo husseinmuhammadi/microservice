@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Users Microservice
-  version: 1.0.0
+  version: 1.0.3
 paths:
   /users:
     get:
@@ -45,6 +45,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateUserResponse'
+  /users/{userId}:
+    get:
+      description: Return the User based on given userId
+      operationId: findUserByUserId
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: A user found by userId
+  /users/{email}/email:
+    get:
+      description: Return user for given email
+      operationId: findUserByEmail
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+            format: email
+      responses:
+        200:
+          description: User found by given email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
 
 components:
   schemas:
@@ -59,6 +91,20 @@ components:
         email:
           type: string
           format: email
+
+    UserInfo:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
 
     CreateUserRequest:
       type: object
