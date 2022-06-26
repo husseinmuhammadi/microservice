@@ -39,7 +39,6 @@
                         <configuration>
                             <generatorName>spring</generatorName>
                             <library>spring-boot</library>
-<!--                            <library>spring-cloud</library>-->
                             <inputSpec>
                                 ${project.basedir}/src/main/resources/openapi/users-api.yaml
                             </inputSpec>
