@@ -8,7 +8,7 @@ import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.jdbc.Sql;
@@ -23,14 +23,13 @@ import javax.ws.rs.core.MediaType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
-@AutoConfigureCache
-@AutoConfigureDataJpa
-@AutoConfigureTestDatabase
-@AutoConfigureTestEntityManager
-@ImportAutoConfiguration
+//@AutoConfigureCache
+//@AutoConfigureDataJpa
+//@AutoConfigureTestDatabase
+//@AutoConfigureTestEntityManager
+//@ImportAutoConfiguration
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
+@IntegrationTest
 class UsersResourceIntegrationTest {
 
     @Autowired
@@ -68,6 +67,6 @@ class UsersResourceIntegrationTest {
                 .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("04017bf8-cadc-11ec-a70f-acde48001122")))
                 .andReturn().getResponse();
 
-        assertEquals(MediaType.APPLICATION_JSON,  response.getContentType());
+        assertEquals(MediaType.APPLICATION_JSON, response.getContentType());
     }
 }
