@@ -1,7 +1,16 @@
 version: "3.8"
 services:
-  eureka-discovery-service:
+  users-service:
     build:
-      dockerfile: ./infrastructure/eurika-discovery-service/dockerfile
-      context: ./infrastructure/eurika-discovery-service/.
-    
+      context: user
+      dockerfile: ./Dockerfile
+    image: digilab/users-microservice
+    container_name: users-microservice
+    ports:
+      - 8001:80
+    networks:
+      - digilinq-network
+networks:
+  digilinq-network:
+    name: digilinq
+    external: true

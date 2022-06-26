@@ -101,7 +101,7 @@ spring:
             non_contextual_creation: true
 
 server:
-  port: 0
+  port: 80
   servlet:
     context-path: /
 
