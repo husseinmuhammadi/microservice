@@ -1,13 +1,11 @@
 FROM maven:3.6.0-jdk-11 AS build
-ARG PROFILE=not-defined
 WORKDIR /work
 COPY ./pom.xml ./pom.xml
-COPY ./infrastructure ./infrastructure
-COPY ./platform ./platform
-RUN mvn clean package -P$PROFILE
+COPY ./src ./src
+RUN mvn clean package
 
 FROM openjdk:11
 WORKDIR /work
-COPY --from=build /work/infrastructure/eureka-discovery-service/target/eureka-discovery-service.jar eureka-discovery-service.jar
-EXPOSE 80
-ENTRYPOINT ["java","-jar","eureka-discovery-service.jar"]
+COPY --from=build /work/target/eureka-discovery-service.jar eureka-discovery-service.jar
+EXPOSE 8761
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=stage","eureka-discovery-service.jar"]
