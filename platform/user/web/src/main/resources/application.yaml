@@ -18,9 +18,6 @@ spring:
   cloud:
     config:
       enabled: false
-  devtools:
-    restart:
-      enabled: true
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -45,9 +42,6 @@ spring:
   config:
     activate:
       on-profile: dev
-  devtools:
-    restart:
-      enabled: true
   datasource:
     url: jdbc:postgresql://localhost:5432/digiboy
     username: digiboy
