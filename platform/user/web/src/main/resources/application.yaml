@@ -1,8 +1,6 @@
 spring:
   application:
     name: users
-  profiles:
-    active: ${spring.active.profiles}
 
 management:
   endpoints:
@@ -103,7 +101,7 @@ spring:
             non_contextual_creation: true
 
 server:
-  port: 0
+  port: 80
   servlet:
     context-path: /
 
@@ -136,3 +134,16 @@ server:
   port: 0
   servlet:
     context-path: /
+
+--- # test
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  cloud:
+    config:
+      enabled: false
+eureka:
+  client:
+    enabled: false

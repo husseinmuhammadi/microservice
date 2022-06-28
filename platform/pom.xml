@@ -17,7 +17,6 @@
 
     <modules>
         <module>template</module>
-        <module>user</module>
         <module>auth</module>
     </modules>
 
