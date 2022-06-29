@@ -28,11 +28,8 @@
     </properties>
 
     <modules>
-<!--        <module>infrastructure/eureka-discovery-service</module>-->
         <module>infrastructure/zuul-api-gateway</module>
-<!--        <module>infrastructure/spring-cloud-api-gateway</module>-->
         <module>infrastructure/spring-cloud-config-server</module>
-        <module>platform</module>
     </modules>
 
     <dependencyManagement>
