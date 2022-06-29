@@ -30,10 +30,10 @@ services:
       - digilinq-network
   spring-cloud-api-gateway:
     build:
-      context: ..
-      dockerfile: infrastructure/spring-cloud-api-gateway/Dockerfile
+      context: spring-cloud-api-gateway
+      dockerfile: Dockerfile
       args:
-        PROFILE: dev
+        PROFILE: stage
     image: digilab/spring-cloud-api-gateway
     container_name: spring-cloud-api-gateway
     depends_on:
