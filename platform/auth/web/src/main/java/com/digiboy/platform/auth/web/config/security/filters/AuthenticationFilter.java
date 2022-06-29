@@ -21,9 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -51,14 +51,15 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime expiration = now.plusSeconds(60);
+        LocalDateTime expiration = now.plusSeconds(3600);
 
         byte[] secretKey = "secret".getBytes(StandardCharsets.UTF_8);
 
         String token = Jwts.builder().setSubject(
                         // user id
-                ((User)authResult.getPrincipal()).getUsername()
-                ).setExpiration(Date.from(expiration.atZone(ZoneId.systemDefault()).toInstant()))
+                        ((User) authResult.getPrincipal()).getUsername()
+                )
+                .setExpiration(Date.from(expiration.atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
 
