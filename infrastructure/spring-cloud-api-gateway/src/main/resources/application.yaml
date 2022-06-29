@@ -19,7 +19,7 @@ spring:
             - Method=GET
           filters:
             - RewritePath=/users-ws/users/index, /users/index
-#            - AuthorizationFilter
+            - AuthorizationHeaderFilter
 
 
 #        - id: users-status-check
@@ -38,6 +38,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/users-ws/api/v1/users, /api/v1/users
+
         - id: get-all-users
           uri: lb://users
           predicates:
@@ -45,6 +46,12 @@ spring:
             - Method=GET
           filters:
             - RewritePath=/users-ws/api/v1/users, /api/v1/users
+
+        - id: login
+          uri: lb://auth-service
+          predicates:
+            - Path=/login
+            - Method=POST
 
 #        - id: account
 #          uri: lb://account-management-ws
@@ -80,6 +87,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+token:
+  secret: secret
 
 ---
 
