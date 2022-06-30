@@ -1,10 +1,10 @@
 package com.eightbitsolutions.infrastructure.gateway.filters;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -18,14 +18,12 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.time.ZoneId;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Date;
 import java.util.Optional;
 
 @Component
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
+
+    private final Logger logger = LoggerFactory.getLogger(AuthorizationHeaderFilter.class);
 
     @Autowired
     private Environment env;
@@ -47,8 +45,16 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
                     .map(authorizationHeader -> authorizationHeader.replace("Bearer ", ""))
                     .orElse(null);
 
-            if (!isJwtValid(jwt)) {
-                return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
+            try {
+                if (!isJwtValid(jwt)) {
+                    return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
+                }
+            } catch (ExpiredJwtException e) {
+                // logger.warn("Jwt token is expired", e);
+                return onError(exchange, "JWT token is expired", HttpStatus.UNAUTHORIZED);
+            } catch (JwtException e) {
+                // logger.error("JWT could not be validated", e);
+                return onError(exchange, "JWT could not be validated", HttpStatus.UNAUTHORIZED);
             }
 
             return chain.filter(exchange);
