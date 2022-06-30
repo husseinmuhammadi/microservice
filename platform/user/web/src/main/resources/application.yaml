@@ -18,9 +18,6 @@ spring:
   cloud:
     config:
       enabled: false
-  devtools:
-    restart:
-      enabled: true
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -45,9 +42,6 @@ spring:
   config:
     activate:
       on-profile: dev
-  devtools:
-    restart:
-      enabled: true
   datasource:
     url: jdbc:postgresql://localhost:5432/digiboy
     username: digiboy
@@ -77,6 +71,10 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 --- # stage
 
 spring:
