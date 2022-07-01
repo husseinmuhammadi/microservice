@@ -24,12 +24,12 @@ spring:
   profiles: dev
 
 server:
-  port: 80
+  port: 8081
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka-discovery-service:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
 
 ---
 
