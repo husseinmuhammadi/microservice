@@ -45,6 +45,10 @@ spring:
       on-profile: stage
 server:
   port: 0
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-discovery-service:8761/eureka/
 
 --- # prod
 

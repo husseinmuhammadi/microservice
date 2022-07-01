@@ -5,7 +5,7 @@ services:
     build:
       context: eureka-discovery-service
       dockerfile: Dockerfile
-    image: digilab/eureka-discovery-service
+    image: digilab/infrastructure/eureka-discovery-service
     container_name: eureka-discovery-service
     ports:
       - 8761:8761
@@ -15,7 +15,7 @@ services:
     build:
       context: zuul-api-gateway
       dockerfile: Dockerfile
-    image: digilab/zuul-api-gateway
+    image: digilab/infrastructure/zuul-api-gateway
     container_name: zuul-api-gateway
     depends_on:
       - eureka-discovery-service
@@ -30,7 +30,7 @@ services:
       dockerfile: Dockerfile
       args:
         PROFILE: stage
-    image: digilab/spring-cloud-api-gateway
+    image: digilab/infrastructure/spring-cloud-api-gateway
     container_name: spring-cloud-api-gateway
     depends_on:
       - eureka-discovery-service
@@ -43,7 +43,7 @@ services:
     build:
       context: spring-cloud-config-server
       dockerfile: Dockerfile
-    image: digilab/spring-cloud-config-server
+    image: digilab/infrastructure/spring-cloud-config-server
     container_name: spring-cloud-config-server
     networks:
       - digilinq-network
@@ -63,3 +63,4 @@ services:
 networks:
   digilinq-network:
     name: digilinq
+    external: true
