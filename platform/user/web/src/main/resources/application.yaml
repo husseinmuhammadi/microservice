@@ -1,17 +1,13 @@
-spring:
-  application:
-    name: users
-
 management:
   endpoints:
     web:
       exposure:
         include: "health,info,metrics,httptrace"
       base-path: /actuator
-
 --- # local
-
 spring:
+  application:
+    name: users-local
   config:
     activate:
       on-profile: local
@@ -35,10 +31,10 @@ server:
 eureka:
   client:
     enabled: false
-
 --- # dev
-
 spring:
+  application:
+    name: users-dev
   config:
     activate:
       on-profile: dev
@@ -58,27 +54,24 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-
 server:
   port: 8001
   servlet:
     context-path: /
-
 eureka:
   client:
     serviceUrl:
       defaultZone: http://127.0.0.1:8761/eureka/
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
 --- # stage
-
 spring:
+  application:
+    name: users-stage
   config:
     activate:
       on-profile: stage
@@ -98,22 +91,20 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-
 server:
   port: 80
   servlet:
     context-path: /
-
 eureka:
   client:
     serviceUrl:
       defaultZone: http://eureka-discovery-service:8761/eureka/
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
 --- # prod
-
 spring:
+  application:
+    name: users
   config:
     activate:
       on-profile: prod
@@ -128,7 +119,6 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-
 server:
   port: 0
   servlet:

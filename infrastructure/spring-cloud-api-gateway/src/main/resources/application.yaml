@@ -1,86 +1,21 @@
+---
 spring:
-  application:
-    name: api-gateway
-  cloud:
-    gateway:
-      httpclient:
-        wiretap: true
-      httpserver:
-        wiretap: true
-#      discovery:
-#        locator:
-#          enabled: true
-#          lower-case-service-id: true
-      routes:
-        - id: users-status-check
-          uri: lb://users
-          predicates:
-            - Path=/users-ws/users/index
-            - Method=GET
-          filters:
-            - RewritePath=/users-ws/users/index, /users/index
-            - AuthorizationHeaderFilter
-
-
-#        - id: users-status-check
-#          uri: lb://users
-#          predicates:
-#            - Path=/users-ws/**
-#            - Method=GET
-#          filters:
-#            - RemoveRequestHeader=Cookie
-#            - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
-        - id: users-save
-          uri: lb://users
-          predicates:
-            - Path=/users-ws/api/v1/users
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/users-ws/api/v1/users, /api/v1/users
-
-        - id: get-all-users
-          uri: lb://users
-          predicates:
-            - Path=/users-ws/api/v1/users
-            - Method=GET
-          filters:
-            - RewritePath=/users-ws/api/v1/users, /api/v1/users
-
-        - id: login
-          uri: lb://auth-service
-          predicates:
-            - Path=/login
-            - Method=POST
-
-#        - id: account
-#          uri: lb://account-management-ws
-#          predicates:
-#            - Path=/account/**
-
+  config:
+    activate:
+      on-profile: dev
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+token:
+  secret: secret
 management:
   endpoints:
     web:
       exposure:
         include: "health,info,metrics,httptrace"
----
-
-spring:
-  config:
-    activate:
-      on-profile: dev
-
-server:
-  port: 8080
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
-token:
-  secret: secret
-
 #logging:
 #  level:
 #    org.springframework.cloud.gateway: DEBUG
@@ -91,17 +26,13 @@ token:
 #      springframework:
 #        cloud:
 #          gateway: TRACE
-
 ---
-
 spring:
   config:
     activate:
       on-profile: stage
-
 server:
   port: 80
-
 eureka:
   client:
     serviceUrl:
@@ -109,17 +40,13 @@ eureka:
 
 token:
   secret: secret
-
 ---
-
 spring:
   config:
     activate:
       on-profile: prod
-
 server:
   port: 80
-
 eureka:
   client:
     serviceUrl:

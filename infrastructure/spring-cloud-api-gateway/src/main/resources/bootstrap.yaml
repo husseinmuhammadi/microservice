@@ -1,0 +1,76 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  application:
+    name: api-gateway-dev
+  cloud:
+    gateway:
+      httpclient:
+        wiretap: true
+      httpserver:
+        wiretap: true
+      #      discovery:
+      #        locator:
+      #          enabled: true
+      #          lower-case-service-id: true
+      routes:
+        - id: users-status-check
+          uri: lb://users-dev
+          predicates:
+            - Path=/users-ws/users/index
+            - Method=GET
+          filters:
+            - RewritePath=/users-ws/users/index, /users/index
+            - AuthorizationHeaderFilter
+
+
+        #        - id: users-status-check
+        #          uri: lb://users
+        #          predicates:
+        #            - Path=/users-ws/**
+        #            - Method=GET
+        #          filters:
+        #            - RemoveRequestHeader=Cookie
+        #            - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+        - id: users-save
+          uri: lb://users-dev
+          predicates:
+            - Path=/users-ws/api/v1/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-ws/api/v1/users, /api/v1/users
+
+        - id: get-all-users
+          uri: lb://users-dev
+          predicates:
+            - Path=/users-ws/api/v1/users
+            - Method=GET
+          filters:
+            - RewritePath=/users-ws/api/v1/users, /api/v1/users
+
+        - id: login
+          uri: lb://auth-service-dev
+          predicates:
+            - Path=/login
+            - Method=POST
+
+#        - id: account
+#          uri: lb://account-management-ws
+#          predicates:
+#            - Path=/account/**
+---
+spring:
+  config:
+    activate:
+      on-profile: stage
+  application:
+    name: api-gateway-stage
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name: api-gateway
