@@ -3,11 +3,9 @@ version: '3.8'
 services:
   eureka-discovery-service:
     build:
-      context: ..
-      dockerfile: infrastructure/eureka-discovery-service/Dockerfile
-      args:
-        PROFILE: dev
-    image: digilab/eureka-discovery-service
+      context: eureka-discovery-service
+      dockerfile: Dockerfile
+    image: digilab/infrastructure/eureka-discovery-service
     container_name: eureka-discovery-service
     ports:
       - 8761:8761
@@ -15,11 +13,9 @@ services:
       - digilinq-network
   zuul-api-gateway:
     build:
-      context: ..
-      dockerfile: infrastructure/zuul-api-gateway/Dockerfile
-      args:
-        PROFILE: dev
-    image: digilab/zuul-api-gateway
+      context: zuul-api-gateway
+      dockerfile: Dockerfile
+    image: digilab/infrastructure/zuul-api-gateway
     container_name: zuul-api-gateway
     depends_on:
       - eureka-discovery-service
@@ -34,7 +30,7 @@ services:
       dockerfile: Dockerfile
       args:
         PROFILE: stage
-    image: digilab/spring-cloud-api-gateway
+    image: digilab/infrastructure/spring-cloud-api-gateway
     container_name: spring-cloud-api-gateway
     depends_on:
       - eureka-discovery-service
@@ -45,14 +41,10 @@ services:
       - digilinq-network
   spring-cloud-config-server:
     build:
-      context: ..
-      dockerfile: infrastructure/spring-cloud-config-server/Dockerfile
-      args:
-        PROFILE: dev
-    image: digilab/spring-cloud-config-server
+      context: spring-cloud-config-server
+      dockerfile: Dockerfile
+    image: digilab/infrastructure/spring-cloud-config-server
     container_name: spring-cloud-config-server
-    ports:
-      - 8071:80
     networks:
       - digilinq-network
   postgres:
@@ -65,9 +57,10 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - 15432:5432
+      - 45432:5432
     networks:
       - digilinq-network
 networks:
   digilinq-network:
     name: digilinq
+    external: true

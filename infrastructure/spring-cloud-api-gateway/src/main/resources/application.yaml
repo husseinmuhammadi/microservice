@@ -107,6 +107,9 @@ eureka:
     serviceUrl:
       defaultZone: http://eureka-discovery-service:8761/eureka/
 
+token:
+  secret: secret
+
 ---
 
 spring:

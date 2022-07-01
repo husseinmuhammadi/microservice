@@ -3,11 +3,17 @@ services:
   users-service:
     build:
       context: user
-      dockerfile: ./Dockerfile
-    image: digilab/users-microservice
+      dockerfile: Dockerfile
+    image: digilab/platform/users-microservice
     container_name: users-microservice
-    ports:
-      - 8001:80
+    networks:
+      - digilinq-network
+  auth-service:
+    build:
+      context: auth
+      dockerfile: Dockerfile
+    image: digilab/platform/auth-microservice
+    container_name: auth-microservice
     networks:
       - digilinq-network
 networks:
