@@ -10,7 +10,6 @@ spring:
   cloud:
     config:
       uri: http://localhost:8071
-
     gateway:
       httpclient:
         wiretap: true
@@ -74,7 +73,8 @@ spring:
       on-profile: stage
   cloud:
     config:
-      uri: http://localhost:8071
+      uri: http://spring-cloud-config-server:80
+#    import: optional:configserver:http://spring-cloud-config-server:80
 
 --- # prod
 spring:
