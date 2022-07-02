@@ -1,4 +1,4 @@
----
+--- # dev
 spring:
   config:
     activate:
@@ -9,8 +9,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-token:
-  secret: secret
 management:
   endpoints:
     web:
@@ -26,7 +24,8 @@ management:
 #      springframework:
 #        cloud:
 #          gateway: TRACE
----
+
+--- # stage
 spring:
   config:
     activate:
@@ -37,10 +36,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://eureka-discovery-service:8761/eureka/
-
 token:
   secret: secret
----
+
+--- # prod
 spring:
   config:
     activate:
