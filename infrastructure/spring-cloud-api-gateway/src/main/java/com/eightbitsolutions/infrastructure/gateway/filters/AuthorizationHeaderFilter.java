@@ -5,7 +5,6 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.env.Environment;
@@ -25,11 +24,11 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     private final Logger logger = LoggerFactory.getLogger(AuthorizationHeaderFilter.class);
 
-    @Autowired
-    private Environment env;
+    private final Environment env;
 
-    public AuthorizationHeaderFilter() {
+    public AuthorizationHeaderFilter(Environment env) {
         super(Config.class);
+        this.env = env;
     }
 
     @Override
