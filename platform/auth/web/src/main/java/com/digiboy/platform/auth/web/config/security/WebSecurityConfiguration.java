@@ -2,6 +2,7 @@ package com.digiboy.platform.auth.web.config.security;
 
 import com.digiboy.platform.auth.api.UserService;
 import com.digiboy.platform.auth.web.config.security.filters.AuthenticationFilter;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -9,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     public static final String[] SWAGGER_UI_V2 = {
@@ -28,16 +29,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     };
 
     private final UserService userService;
+    private final Environment env;
 
-    public WebSecurityConfiguration(UserService userService) {
+    public WebSecurityConfiguration(UserService userService, Environment env) {
         this.userService = userService;
+        this.env = env;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .addFilter(new AuthenticationFilter(authenticationManager()))
+                .addFilter(new AuthenticationFilter(authenticationManager(), env))
                 .authorizeRequests()
                 .antMatchers("/actuator/*", "/login", "/check").permitAll()
                 .anyRequest().authenticated();

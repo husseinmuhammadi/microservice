@@ -1,12 +1,12 @@
 package com.digiboy.platform.auth.web.config.security.filters;
 
 import com.digiboy.platform.auth.generated.v1.model.LoginByEmailRequest;
-import com.digiboy.platform.auth.generated.v1.model.LoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,9 +30,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     private final AuthenticationManager authenticationManager;
+    private final Environment env;
 
-    public AuthenticationFilter(AuthenticationManager authenticationManager) {
+    public AuthenticationFilter(AuthenticationManager authenticationManager, Environment env) {
         this.authenticationManager = authenticationManager;
+        this.env = env;
     }
 
     @Override
@@ -53,7 +55,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expiration = now.plusSeconds(3600);
 
-        byte[] secretKey = "secret".getBytes(StandardCharsets.UTF_8);
+        byte[] secretKey = env.getProperty("token.secret").getBytes(StandardCharsets.UTF_8);
 
         String token = Jwts.builder().setSubject(
                         // user id
