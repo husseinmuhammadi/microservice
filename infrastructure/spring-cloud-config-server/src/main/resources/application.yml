@@ -1,8 +1,6 @@
 spring:
   application:
     name: spring-cloud-config-server
-  profiles:
-    active: ${spring.active.profiles}
   cloud:
     config:
       server:
@@ -13,42 +11,34 @@ spring:
           default-label: main
           clone-on-start: true
 
----
-
+--- # local
 spring:
   config:
     activate:
       on-profile: local
-
 server:
   port: 8071
 
----
-
+--- # dev
 spring:
   config:
     activate:
       on-profile: dev
-
 server:
   port: 8071
 
----
-
+--- # stage
 spring:
   config:
     activate:
       on-profile: stage
-
 server:
   port: 80
 
----
-
+--- # prod
 spring:
   config:
     activate:
       on-profile: prod
-
 server:
   port: 80
