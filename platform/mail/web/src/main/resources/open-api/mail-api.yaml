@@ -1,0 +1,48 @@
+openapi: 3.0.3
+info:
+  title: Digiboy email sender
+  version: 1.0.0
+  description: Service to send emails
+servers:
+  - url: https://carbon-insights-api-service-chain.apps.pcf-t02-we.rabobank.nl/carbon-insights
+    description: Carbon-insights-api
+paths:
+  /emails:
+    post:
+      description: Send a new email
+      operationId: sendEmail
+      parameters:
+        - $ref: '#/components/parameters/AuthParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Email'
+      responses:
+        204:
+          description: Email sent successfuly
+
+components:
+  schemas:
+    Email:
+      type: object
+      description: Email message to send to the recipients
+      properties:
+        subject:
+          type: string
+        message:
+          type: string
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailType'
+    EmailType:
+      type: string
+      format: email
+  parameters:
+    AuthParam:
+      in: header
+      name: X-Auth-User
+      schema:
+        type: string
+      required: true
